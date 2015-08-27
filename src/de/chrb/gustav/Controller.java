@@ -1,8 +1,6 @@
 package de.chrb.gustav;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,45 +12,42 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Controller {
-
 	@FXML
 	private Parent root;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private BarChart<?, ?> bcAvg;
 
     @FXML
-    private LineChart<?, ?> gcTimeline;
+    private TableColumn<?, ?> tcNum;
 
     @FXML
-    private Button addBtn;
+    private TableColumn<?, ?> tbSigma;
+
+    @FXML
+    private LineChart<?, ?> lcGCTimeline;
+
+    @FXML
+    private TableColumn<?, ?> tcFile;
 
     @FXML
     private BarChart<?, ?> gcMin;
 
     @FXML
-    private TextArea importantDataTextArea;
-
-    @FXML
-    private BarChart<?, ?> bcMax;
-
-    @FXML
-    private BarChart<?, ?> bcNumPerc;
+    private LineChart<?, ?> lcGCPauseDistribution;
 
     @FXML
     private BarChart<?, ?> bcTotalGC;
+
+    @FXML
+    private TableColumn<?, ?> tcNumPerc;
 
     @FXML
     private BarChart<?, ?> bcOverhead;
@@ -61,22 +56,46 @@ public class Controller {
     private BarChart<?, ?> bcNum;
 
     @FXML
-    private Button removeBtn;
-
-    @FXML
     private TableView<?> statTable;
 
     @FXML
-    private BarChart<?, ?> gcSigma;
+    private Button btnRemove;
 
     @FXML
-    private PieChart pieChart;
-
-    @FXML
-    private LineChart<?, ?> gcPauseDistribution;
+    private TableColumn<?, ?> tcTocalGcPerc;
 
     @FXML
     private ListView<File> fileListView;
+
+    @FXML
+    private TableColumn<?, ?> tcMax;
+
+    @FXML
+    private TableColumn<?, ?> tcOverhead;
+
+    @FXML
+    private PieChart pcGCStats;
+
+    @FXML
+    private BarChart<?, ?> bcMax;
+
+    @FXML
+    private BarChart<?, ?> bcNumPerc;
+
+    @FXML
+    private TableColumn<?, ?> tcAvg;
+
+    @FXML
+    private TableColumn<?, ?> tcMin;
+
+    @FXML
+    private Button btnAdd;
+
+    @FXML
+    private TextArea tfImportantDataTextArea;
+
+    @FXML
+    private BarChart<?, ?> gcSigma;
 
     @FXML
     void addNewFile(ActionEvent event) {
@@ -87,12 +106,13 @@ public class Controller {
 
     	final ObservableList<File> items = FXCollections.observableArrayList(file);
     	fileListView.setItems(items);
-
-
     }
 
     @FXML
     void removeFile(ActionEvent event) {
 
     }
+
+
+
 }
