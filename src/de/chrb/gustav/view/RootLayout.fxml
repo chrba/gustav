@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:id="root" fx:controller="de.chrb.gustav.Controller">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0">
+         <children>
+            <SplitPane dividerPositions="0.1835016835016835" layoutY="66.0" prefHeight="734.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
+              <items>
+                <AnchorPane SplitPane.resizableWithParent="false">
+                     <children>
+                        <ListView fx:id="fileListView" prefHeight="722.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <SplitPane dividerPositions="0.18055555555555555" layoutX="119.0" layoutY="238.0" orientation="VERTICAL" prefHeight="798.0" prefWidth="815.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="1178.0">
+                                 <children>
+                                    <TableView fx:id="statTable" layoutX="34.0" layoutY="66.0" prefHeight="331.0" prefWidth="813.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" />
+                                        <TableColumn prefWidth="98.0" text="File" />
+                                          <TableColumn prefWidth="75.0" text="Num" />
+                                          <TableColumn prefWidth="100.0" text="Num%" />
+                                          <TableColumn prefWidth="88.0" text="TotalGC%" />
+                                          <TableColumn prefWidth="120.0" text="Overhead" />
+                                          <TableColumn prefWidth="101.0" text="Avg" />
+                                          <TableColumn prefWidth="110.0" text="Sigma" />
+                                          <TableColumn prefWidth="103.0" text="Min" />
+                                          <TableColumn prefWidth="141.0" text="Max" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane>
+                                 <children>
+                                    <SplitPane dividerPositions="0.3835616438356164" orientation="VERTICAL" prefHeight="543.0" prefWidth="1188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <items>
+                                        <AnchorPane>
+                                             <children>
+                                              <AnchorPane prefHeight="433.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <TabPane prefHeight="433.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <tabs>
+                                                          <Tab text="Num">
+                                                            <content>
+                                                              <AnchorPane>
+                                                                     <children>
+                                                                        <BarChart fx:id="bcNum" prefHeight="400.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                            </content>
+                                                          </Tab>
+                                                          <Tab text="Num%">
+                                                            <content>
+                                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="bcNumPerc" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                            </content>
+                                                          </Tab>
+                                                            <Tab text="TotalGC%">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="bcTotalGC" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </Tab>
+                                                            <Tab text="Overhead">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="bcOverhead" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </Tab>
+                                                            <Tab text="Avg">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="bcAvg" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </Tab>
+                                                            <Tab text="Sigma">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="gcSigma" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </Tab>
+                                                            <Tab text="Min">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="gcMin" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </Tab>
+                                                            <Tab text="Max">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <BarChart fx:id="bcMax" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <xAxis>
+                                                                            <CategoryAxis side="BOTTOM" />
+                                                                          </xAxis>
+                                                                          <yAxis>
+                                                                            <NumberAxis side="LEFT" />
+                                                                          </yAxis>
+                                                                        </BarChart>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </Tab>
+                                                        </tabs>
+                                                      </TabPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </AnchorPane>
+                                        <AnchorPane>
+                                             <children>
+                                              <AnchorPane prefHeight="529.0" prefWidth="1055.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <TabPane prefHeight="356.0" prefWidth="962.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <tabs>
+                                                          <Tab text="gc.file.1">
+                                                            <content>
+                                                              <AnchorPane>
+                                                                     <children>
+                                                                        <Accordion prefHeight="256.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                          <panes>
+                                                                            <TitledPane animated="false" text="GC Infos">
+                                                                              <content>
+                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                       <children>
+                                                                                          <HBox prefHeight="247.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                             <children>
+                                                                                                <TextArea fx:id="importantDataTextArea" editable="false" prefHeight="400.0" prefWidth="360.0" text="Important Data&#10;---------------------&#10; - Promition Rate: 1056 kB&#10; - Average Allocation Rate: 1034 kB&#10; - SIgma Range: 10023&#10;&#10;Configuration&#10;---------------------&#10; - Used Garbage Collector: CMS&#10; - Min Heap: 2345&#10; - Max Heap 2345" />
+                                                                                                <PieChart fx:id="pieChart" />
+                                                                                             </children>
+                                                                                          </HBox>
+                                                                                       </children>
+                                                                                    </AnchorPane>
+                                                                              </content>
+                                                                            </TitledPane>
+                                                                            <TitledPane animated="false" expanded="false" text="GC Pause Distribution">
+                                                                              <content>
+                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                       <children>
+                                                                                          <LineChart fx:id="gcPauseDistribution" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                            <xAxis>
+                                                                                              <CategoryAxis side="BOTTOM" />
+                                                                                            </xAxis>
+                                                                                            <yAxis>
+                                                                                              <NumberAxis side="LEFT" />
+                                                                                            </yAxis>
+                                                                                          </LineChart>
+                                                                                       </children>
+                                                                                    </AnchorPane>
+                                                                              </content>
+                                                                            </TitledPane>
+                                                                            <TitledPane animated="false" expanded="false" text="GC Timeline">
+                                                                              <content>
+                                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                       <children>
+                                                                                          <LineChart fx:id="gcTimeline" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                            <xAxis>
+                                                                                              <CategoryAxis side="BOTTOM" />
+                                                                                            </xAxis>
+                                                                                            <yAxis>
+                                                                                              <NumberAxis side="LEFT" />
+                                                                                            </yAxis>
+                                                                                          </LineChart>
+                                                                                       </children>
+                                                                                    </AnchorPane>
+                                                                              </content>
+                                                                            </TitledPane>
+                                                                          </panes>
+                                                                        </Accordion>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                            </content>
+                                                          </Tab>
+                                                        </tabs>
+                                                      </TabPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </items>
+                                    </SplitPane>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <ImageView fitHeight="51.0" fitWidth="103.0" layoutX="33.0" layoutY="9.0">
+               <image>
+                  <Image url="@gustav.png" />
+               </image>
+            </ImageView>
+            <HBox layoutX="1053.0" layoutY="22.0" spacing="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="22.0">
+               <children>
+                  <Button fx:id="addBtn" layoutX="1055.0" layoutY="34.0" mnemonicParsing="false" onAction="#addNewFile" text="Add..." />
+                  <Button fx:id="removeBtn" layoutX="1130.0" layoutY="34.0" mnemonicParsing="false" onAction="#removeFile" text="Remove" />
+               </children>
+            </HBox>
+            <Text fill="#656565" layoutX="145.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Garbage Collection Analyzer">
+               <font>
+                  <Font name="System Italic" size="9.0" />
+               </font>
+            </Text>
+            <Label layoutX="332.0" layoutY="26.0" prefHeight="25.0" prefWidth="628.0" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </AnchorPane>
+   </children>
+</VBox>
