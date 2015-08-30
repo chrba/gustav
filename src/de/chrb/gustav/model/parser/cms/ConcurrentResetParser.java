@@ -1,7 +1,7 @@
 package de.chrb.gustav.model.parser.cms;
 
 
-public  class ConcurrentResetParser extends ConcurrentPhaseParser {
+public class ConcurrentResetParser extends ConcurrentPhaseParser {
 
 	@Override
 	protected String getName() {
@@ -9,8 +9,8 @@ public  class ConcurrentResetParser extends ConcurrentPhaseParser {
 	}
 
 	@Override
-	protected boolean startParsing(Message message) {
-		return message.text().contains("CMS-concurrent-reset:");
+	protected boolean startParsing(String message) {
+		return message.contains("CMS-concurrent-reset:");
 	}
 
 }

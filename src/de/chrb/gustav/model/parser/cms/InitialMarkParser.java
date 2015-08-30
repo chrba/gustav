@@ -3,18 +3,15 @@ package de.chrb.gustav.model.parser.cms;
 
 
 import javax.annotation.RegEx;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.gc.GCMemStats;
+import de.chrb.gustav.model.gc.GCTimeStats;
+import de.chrb.gustav.model.parser.AbstractParser;
+import de.chrb.gustav.model.parser.Patterns;
 import de.java.regexdsl.model.Match;
 import de.java.regexdsl.model.Regex;
 import de.java.regexdsl.model.RegexBuilder;
-import de.morten.model.gc.GCMemStats;
-import de.morten.model.gc.GCTimeStats;
-import de.morten.model.message.Message;
-import de.morten.model.parser.AbstractParser;
-import de.morten.model.parser.ActiveGCParser;
-import de.morten.model.parser.Patterns;
 
 /**
  * Initial mark indicates the start of the CMS garbage collection. It is the first of 7 phases.
@@ -37,11 +34,10 @@ import de.morten.model.parser.Patterns;
  *
  * @author Christian Bannes
  */
-@ActiveGCParser
 public class InitialMarkParser extends AbstractParser {
 
 	private final static Regex INITIAL_MARK = createInitialMarkPattern();
-	@Inject private Event<InitialMarkGCEvent> event;
+	 InitialMarkGCEvent event;
 
 	@Override
 	public boolean isMultiLine() {
@@ -49,13 +45,13 @@ public class InitialMarkParser extends AbstractParser {
 	}
 
 	@Override
-	public boolean startParsing(final Message message) {
-		return message.text().contains("CMS-initial-mark");
+	public boolean startParsing(final String message) {
+		return message.contains("CMS-initial-mark");
 	}
 
 	@Override
-	public boolean inlineDetected(final Message message) {
-		return !message.text().trim().endsWith("]");
+	public boolean definitelyNotLastLine(final String message) {
+		return !message.trim().endsWith("]");
 	}
 
 	@Override
@@ -84,15 +80,13 @@ public class InitialMarkParser extends AbstractParser {
 	 * {@link EventPublisher}.
 	 */
 	@Override
-	protected void publishEventFor(final Match match, final Message message) {
+	protected GCEvent createGCEventFrom(final Match match, final String message) {
 
 		final GCMemStats tenuredState = currentStateTenured(match);
 		final GCMemStats heapState = currentStateHeap(match);
 		final GCTimeStats timeStats = readTimeStats(match);
 
-		final InitialMarkGCEvent initialMarkEvent = new InitialMarkGCEvent("InitialMark", timeStats, tenuredState, heapState, message.correlationId());
-
-		this.event.fire(initialMarkEvent);
+		return new InitialMarkGCEvent("InitialMark", timeStats, tenuredState, heapState);
 	}
 
 	/**

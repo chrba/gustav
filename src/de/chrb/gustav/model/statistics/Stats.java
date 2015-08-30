@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class Stats {
 
-
 	/**
 	 * Private default constructor
 	 */

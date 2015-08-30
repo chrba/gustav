@@ -5,7 +5,7 @@ package de.chrb.gustav.model.gc;
  * Represents one minor or major garbage collection event of the JVM.
  * @author Christian Bannes
  */
-public interface GCEvent extends CorrelationIdentifiable {
+public interface GCEvent  {
 	/**
 	 * Indicates if the garbage collector uses stop-the-world, i.e.
 	 * if all application threads are halted or if it runs in parallel

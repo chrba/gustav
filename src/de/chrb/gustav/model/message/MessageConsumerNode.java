@@ -56,7 +56,7 @@ class MessageConsumerNode {
 		}
 	}
 
-	public boolean consume(final Message message) {
+	public boolean consume(final String message) {
 		MessageConsumerNode t = this;
 		boolean consumed = false;
 		while(t != null) {

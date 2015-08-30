@@ -1,12 +1,12 @@
 package de.chrb.gustav.model.parser.cms;
 
+import de.chrb.gustav.model.gc.AbstractGCEvent;
 import de.chrb.gustav.model.gc.GCTimeStats;
-import de.chrb.gustav.model.message.CorrelationId;
 
 public class ConcurrentPhaseEvent extends AbstractGCEvent {
 
-	public ConcurrentPhaseEvent(final String name, final GCTimeStats timeStats, final CorrelationId correlationId) {
-		super(name, timeStats, correlationId);
+	public ConcurrentPhaseEvent(final String name, final GCTimeStats timeStats) {
+		super(name, timeStats);
 	}
 
 	@Override

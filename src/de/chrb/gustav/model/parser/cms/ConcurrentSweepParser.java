@@ -1,10 +1,6 @@
 package de.chrb.gustav.model.parser.cms;
 
 
-import de.morten.model.message.Message;
-import de.morten.model.parser.ActiveGCParser;
-
-@ActiveGCParser
 public class ConcurrentSweepParser extends ConcurrentPhaseParser {
 
 	@Override
@@ -13,8 +9,8 @@ public class ConcurrentSweepParser extends ConcurrentPhaseParser {
 	}
 
 	@Override
-	protected boolean startParsing(Message message) {
-		return message.text().contains("CMS-concurrent-sweep:");
+	protected boolean startParsing(String message) {
+		return message.contains("CMS-concurrent-sweep:");
 	}
 
 }

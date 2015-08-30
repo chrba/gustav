@@ -2,9 +2,14 @@ package de.chrb.gustav.model.parser;
 
 
 
+import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Optional;
 
-import de.chrb.gustav.model.message.Message;
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.gc.GCTimeStats;
+import de.chrb.gustav.model.message.MessageConsumer;
 import de.java.regexdsl.model.Match;
 import de.java.regexdsl.model.Regex;
 
@@ -12,14 +17,17 @@ import de.java.regexdsl.model.Regex;
  * Convenient implementation of a parser. A gc parser should always
  * extend this class.
  *
+ * Not threadsafe.
+ *
  * @author Christian Bannes
  */
 public abstract class AbstractParser implements MessageConsumer {
 
 	private String buffer = new String();
+	private LinkedList<GCEvent> queue = new LinkedList<>();
 
 	@Override
-	public boolean consume(final Message message)
+	public boolean consume(final String message)
 	{
 		Objects.requireNonNull(message);
 		return isMultiLine()? consumeMultiLine(message) : consumeSingleLine(message);
@@ -36,7 +44,7 @@ public abstract class AbstractParser implements MessageConsumer {
 	 * @param match the match
 	 * @param message the message that matches on some parser
 	 */
-	protected abstract void publishEventFor(Match match, Message message);
+	protected abstract GCEvent createGCEventFrom(Match match, String message);
 
 	/**
 	 * Determines if an gc event that is supposed to be detected can
@@ -52,7 +60,7 @@ public abstract class AbstractParser implements MessageConsumer {
 	 * @param message the message containing one log line
 	 * @return true if the start marker is detected, else false.
 	 */
-	protected abstract boolean startParsing(Message message);
+	protected abstract boolean startParsing(String message);
 
 	/**
 	 * The regex pattern that describes the match of an event the parser is responsible
@@ -70,10 +78,10 @@ public abstract class AbstractParser implements MessageConsumer {
 	 * @return true, if the message is definitely not the last line of
 	 * 			a gc event
 	 */
-	protected abstract boolean inlineDetected(Message message);
+	protected abstract boolean definitelyNotLastLine(String message);
 
 
-	private boolean consumeSingleLine(final Message message)
+	private boolean consumeSingleLine(final String message)
 	{
 		if(startParsing(message))
 			return match(message);
@@ -81,7 +89,7 @@ public abstract class AbstractParser implements MessageConsumer {
 		return false;
 	}
 
-	private boolean consumeMultiLine(final Message message) {
+	private boolean consumeMultiLine(final String message) {
 		final boolean startDetected = startParsing(message);
 		if(startDetected && alreadyStarted())
 			this.buffer = new String();
@@ -89,11 +97,11 @@ public abstract class AbstractParser implements MessageConsumer {
 		if(alreadyStarted() || startParsing(message))
 		{
 			if(!buffer.isEmpty()) this.buffer += "\n";
-			this.buffer += message.text();
+			this.buffer += message;
 
-			if(inlineDetected(message)) return false;
+			if(definitelyNotLastLine(message)) return false;
 
-			final boolean success = match(message.createCorrelatedMessage(this.buffer));
+			final boolean success = match(this.buffer);
 			if(success) reset();
 
 			return true;
@@ -103,13 +111,13 @@ public abstract class AbstractParser implements MessageConsumer {
 	}
 
 
-	private boolean match(Message message) {
+	private boolean match(String message) {
 		final Regex pattern = pattern();
-		double d = System.currentTimeMillis();
-		final Match match = pattern.match(message.text());
+		final Match match = pattern.match(message);
 		if(match.empty()) return false;
 
-		publishEventFor(match, message);
+		final GCEvent event = createGCEventFrom(match, message);
+		this.queue.add(event);
 		return true;
 	}
 
@@ -120,13 +128,12 @@ public abstract class AbstractParser implements MessageConsumer {
 
 	protected GCTimeStats readTimeStats(final Match match)
 	{
-		DateTime startup = null;
+		LocalDateTime startup = null;
 		if(match.getByName("timestamp") != null)
 		{
 			final String date = match.getByName("timestamp->date");
 			final String time = match.getByName("timestamp->time");
-			DateTimeFormatter parser = ISODateTimeFormat.dateTime();
-			startup = parser.parseDateTime(date+"T"+time + "+0100");
+			startup = LocalDateTime.parse(date+"T"+time);
 		}
 
 		final double ellapsedTimeInSecs = Double.valueOf(match.getByName("timeSinceStartup"));
@@ -136,5 +143,10 @@ public abstract class AbstractParser implements MessageConsumer {
 		return timeStats;
 	}
 
+
+	@Override
+	public Optional<GCEvent> dequeue() {
+		return Optional.ofNullable(this.queue.poll());
+	}
 
 }

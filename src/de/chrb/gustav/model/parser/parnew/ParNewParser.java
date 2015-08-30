@@ -2,19 +2,17 @@ package de.chrb.gustav.model.parser.parnew;
 
 
 import javax.annotation.RegEx;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.gc.GCMemStats;
+import de.chrb.gustav.model.gc.GCTimeStats;
+import de.chrb.gustav.model.gc.MinorGCEvent;
+import de.chrb.gustav.model.parser.AbstractParser;
+import de.chrb.gustav.model.parser.Patterns;
 import de.java.regexdsl.model.Match;
 import de.java.regexdsl.model.Regex;
 import de.java.regexdsl.model.RegexBuilder;
-import de.morten.model.gc.GCMemStats;
-import de.morten.model.gc.GCTimeStats;
-import de.morten.model.gc.MinorGCEvent;
-import de.morten.model.message.Message;
-import de.morten.model.parser.AbstractParser;
-import de.morten.model.parser.ActiveGCParser;
-import de.morten.model.parser.Patterns;
+
 
 /**
  *
@@ -23,7 +21,7 @@ import de.morten.model.parser.Patterns;
 public class ParNewParser extends AbstractParser {
 
 	private final static Regex PAR_NEW = createParNewPattern();
-	@Inject private Event<MinorGCEvent> event;
+	Object event;
 
 	@Override
 	public boolean isMultiLine() {
@@ -31,13 +29,13 @@ public class ParNewParser extends AbstractParser {
 	}
 
 	@Override
-	public boolean startParsing(final Message message) {
-		return message.text().contains("[ParNew");
+	public boolean startParsing(final String message) {
+		return message.contains("[ParNew");
 	}
 
 	@Override
-	public boolean inlineDetected(final Message message) {
-		return !message.text().trim().endsWith("]");
+	public boolean definitelyNotLastLine(final String message) {
+		return !message.trim().endsWith("]");
 	}
 
 	@Override
@@ -66,15 +64,13 @@ public class ParNewParser extends AbstractParser {
 	 * {@link EventPublisher}.
 	 */
 	@Override
-	protected void publishEventFor(final Match match, final Message message) {
+	protected GCEvent createGCEventFrom(final Match match, final String message) {
 
 		final GCMemStats youngGenChange = readYoungGenChange(match);
 		final GCMemStats oldGenChange = readOldGenChange(match);
 		final GCTimeStats timeStats = readTimeStats(match);
 
-		final MinorGCEvent minorGCEvent = new MinorGCEvent("ParNew", timeStats, youngGenChange, oldGenChange, message.correlationId());
-
-		this.event.fire(minorGCEvent);
+		return new MinorGCEvent("ParNew", timeStats, youngGenChange, oldGenChange);
 	}
 
 	/**
@@ -99,5 +95,7 @@ public class ParNewParser extends AbstractParser {
 		final GCMemStats oldGenChange = new GCMemStats(oldBefore, oldAfter, heapTotal);
 		return oldGenChange;
 	}
+
+
 
 }

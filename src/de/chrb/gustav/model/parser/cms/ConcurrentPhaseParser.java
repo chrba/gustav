@@ -2,6 +2,10 @@ package de.chrb.gustav.model.parser.cms;
 
 
 
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.gc.GCTimeStats;
+import de.chrb.gustav.model.parser.AbstractParser;
+import de.chrb.gustav.model.parser.Patterns;
 import de.java.regexdsl.model.Match;
 import de.java.regexdsl.model.Regex;
 import de.java.regexdsl.model.RegexBuilder;
@@ -24,12 +28,10 @@ import de.java.regexdsl.model.RegexBuilder;
  */
 public abstract class ConcurrentPhaseParser extends AbstractParser {
 
-	private Event<ConcurrentPhaseEvent> event;
-
 	@Override
-	protected void publishEventFor(Match match, Message message) {
+	protected GCEvent createGCEventFrom(Match match, String message) {
 		final GCTimeStats timeStats = readTimeStats(match);
-		this.event.fire(new ConcurrentPhaseEvent(getName(), timeStats, message.correlationId()));
+    	return new ConcurrentPhaseEvent(getName(), timeStats);
 	}
 
 	/**
@@ -55,7 +57,7 @@ public abstract class ConcurrentPhaseParser extends AbstractParser {
 	}
 
 	@Override
-	protected boolean inlineDetected(Message message) {
+	protected boolean definitelyNotLastLine(String message) {
 		return false;
 	}
 

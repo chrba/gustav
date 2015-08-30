@@ -1,6 +1,5 @@
 package de.chrb.gustav.model.gc;
 
-import de.chrb.gustav.model.message.CorrelationId;
 
 /**
  * Represents one garbage collection event of the  full gc collector. The FULL GC collector
@@ -13,8 +12,8 @@ public class FullGCEvent extends AbstractGCEvent {
 	/** the unique name of this garbage collector */
 	private final static String NAME = "FULL GC";
 
-	public FullGCEvent(final GCTimeStats timeStats, final CorrelationId correlationId) {
-		super(NAME, timeStats, correlationId);
+	public FullGCEvent(final GCTimeStats timeStats) {
+		super(NAME, timeStats);
 	}
 
 	/**
