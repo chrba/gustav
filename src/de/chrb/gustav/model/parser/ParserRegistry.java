@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import de.chrb.gustav.model.gc.GCEvent;
-import de.chrb.gustav.model.message.MessageConsumer;
+import de.chrb.gustav.model.message.GCParser;
 
 
 /**
@@ -20,10 +20,10 @@ import de.chrb.gustav.model.message.MessageConsumer;
  *
  * @author Christian Bannes
  */
-public class GCParser {
-	private List<MessageConsumer> parsers;
+public class ParserRegistry {
+	private List<GCParser> parsers;
 
-	public GCParser(final List<MessageConsumer> parsers) {
+	public ParserRegistry(final List<GCParser> parsers) {
 		this.parsers = parsers;
 	}
 
@@ -50,16 +50,16 @@ public class GCParser {
 	}
 
 	private Optional<GCEvent> parse(final String line) {
-		final Optional<MessageConsumer> parser = this.parsers.stream()
+		final Optional<GCParser> parser = this.parsers.stream()
 				.filter(p -> p.consume(line))
 				.findFirst();
 
 		parser.ifPresent(p ->
 			parsers.stream()
 				.filter(o -> (o != p))
-				.forEach(MessageConsumer::reset));
+				.forEach(GCParser::reset));
 
-		return parser.flatMap(MessageConsumer::dequeue);
+		return parser.flatMap(GCParser::dequeue);
 	}
 
 

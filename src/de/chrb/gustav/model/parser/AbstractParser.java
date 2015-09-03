@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.gc.GCTimeStats;
-import de.chrb.gustav.model.message.MessageConsumer;
+import de.chrb.gustav.model.message.GCParser;
 import de.java.regexdsl.model.Match;
 import de.java.regexdsl.model.Regex;
 
@@ -21,7 +21,7 @@ import de.java.regexdsl.model.Regex;
  *
  * @author Christian Bannes
  */
-public abstract class AbstractParser implements MessageConsumer {
+public abstract class AbstractParser implements GCParser {
 
 	private String buffer = new String();
 	private LinkedList<GCEvent> queue = new LinkedList<>();

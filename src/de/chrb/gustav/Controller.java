@@ -1,7 +1,13 @@
 package de.chrb.gustav;
 
 import java.io.File;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.parser.ParserRegistry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +25,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Controller {
+	private static Logger LOG = LoggerFactory.getLogger(Controller.class);
+
 	@FXML
 	private Parent root;
 
@@ -97,12 +105,17 @@ public class Controller {
     @FXML
     private BarChart<?, ?> gcSigma;
 
+	private ParserRegistry parserRegistry;
+
     @FXML
     void addNewFile(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
     	final Stage stage = (Stage)root.getScene().getWindow();
     	final File file = fileChooser.showOpenDialog(stage);
+
+    	final List<GCEvent> events = parserRegistry.parse(file);
+    	LOG.debug("Found {} GCEvents", events.size());
 
     	final ObservableList<File> items = FXCollections.observableArrayList(file);
     	fileListView.setItems(items);
@@ -112,6 +125,11 @@ public class Controller {
     void removeFile(ActionEvent event) {
 
     }
+
+	public void setGCParserRegistry(ParserRegistry parserRegistry) {
+		this.parserRegistry = parserRegistry;
+
+	}
 
 
 

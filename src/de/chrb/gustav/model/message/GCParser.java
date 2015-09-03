@@ -10,7 +10,7 @@ import de.chrb.gustav.model.gc.GCEvent;
  *
  * @author Christian Bannes
  */
-public interface  MessageConsumer {
+public interface  GCParser {
 	/**
 	 * Tries to consume the given message. If the message is not accepted (not consumed)
 	 * then false will be returned, else true.
