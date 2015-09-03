@@ -10,6 +10,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.message.GCParser;
 
@@ -21,6 +24,7 @@ import de.chrb.gustav.model.message.GCParser;
  * @author Christian Bannes
  */
 public class ParserRegistry {
+	private static Logger LOG = LoggerFactory.getLogger(ParserRegistry.class);
 	private List<GCParser> parsers;
 
 	public ParserRegistry(final List<GCParser> parsers) {
@@ -38,6 +42,7 @@ public class ParserRegistry {
 	 * @throws IOException
 	 */
 	public List<GCEvent> parse(final File file)  {
+		LOG.debug("Parsing file {}", file.getName());;
 		try(Stream<String> lines = Files.lines(file.toPath())) {
 			return lines.map(this::parse)
 			.filter(Optional::isPresent)

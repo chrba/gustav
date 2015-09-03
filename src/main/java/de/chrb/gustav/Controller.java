@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.parser.ParserRegistry;
+import de.chrb.gustav.model.statistics.Statistics;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +35,7 @@ public class Controller {
     private BarChart<?, ?> bcAvg;
 
     @FXML
-    private TableColumn<?, ?> tcNum;
+    private TableColumn<Statistics, Number> tcNum;
 
     @FXML
     private TableColumn<?, ?> tbSigma;
@@ -43,7 +44,7 @@ public class Controller {
     private LineChart<?, ?> lcGCTimeline;
 
     @FXML
-    private TableColumn<?, ?> tcFile;
+    private TableColumn<Statistics, String> tcFile;
 
     @FXML
     private BarChart<?, ?> gcMin;
@@ -55,7 +56,7 @@ public class Controller {
     private BarChart<?, ?> bcTotalGC;
 
     @FXML
-    private TableColumn<?, ?> tcNumPerc;
+    private TableColumn<Statistics, Number> tcNumPerc;
 
     @FXML
     private BarChart<?, ?> bcOverhead;
@@ -64,7 +65,7 @@ public class Controller {
     private BarChart<?, ?> bcNum;
 
     @FXML
-    private TableView<?> statTable;
+    private TableView<Statistics> statTable;
 
     @FXML
     private Button btnRemove;
@@ -107,6 +108,8 @@ public class Controller {
 
 	private ParserRegistry parserRegistry;
 
+
+
     @FXML
     void addNewFile(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
@@ -116,6 +119,16 @@ public class Controller {
 
     	final List<GCEvent> events = parserRegistry.parse(file);
     	LOG.debug("Found {} GCEvents", events.size());
+
+    	tcFile.setCellValueFactory(s -> s.getValue().fileName);
+    	tcNum.setCellValueFactory(s -> s.getValue().num);
+    	tcNumPerc.setCellValueFactory(s -> s.getValue().numPerc);
+
+    	final Statistics s = new Statistics(file.getName(), "ParNew", events, events);
+    	final ObservableList<Statistics> data =
+    	        FXCollections.observableArrayList(s);
+
+    	statTable.setItems(data);
 
     	final ObservableList<File> items = FXCollections.observableArrayList(file);
     	fileListView.setItems(items);

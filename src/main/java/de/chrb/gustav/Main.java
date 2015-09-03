@@ -48,11 +48,11 @@ public class Main extends Application {
 
 	public ParserRegistry getParserRegistry() {
 		final List<GCParser> parsers = Arrays.asList(
-				new ParNewParser(),
-				new ConcurrentMarkParser(),
-				new ConcurrentResetParser(),
-				new ConcurrentSweepParser(),
-				new PreCleanParser());
+				new ParNewParser());
+				//new ConcurrentMarkParser(),
+				//new ConcurrentResetParser(),
+				//new ConcurrentSweepParser(),
+				//new PreCleanParser());
 		return new ParserRegistry(parsers);
 	}
 
