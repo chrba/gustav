@@ -7,10 +7,6 @@ import java.util.List;
 
 import de.chrb.gustav.model.message.GCParser;
 import de.chrb.gustav.model.parser.ParserRegistry;
-import de.chrb.gustav.model.parser.cms.ConcurrentMarkParser;
-import de.chrb.gustav.model.parser.cms.ConcurrentResetParser;
-import de.chrb.gustav.model.parser.cms.ConcurrentSweepParser;
-import de.chrb.gustav.model.parser.cms.PreCleanParser;
 import de.chrb.gustav.model.parser.parnew.ParNewParser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

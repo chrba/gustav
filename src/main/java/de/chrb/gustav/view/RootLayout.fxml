@@ -26,16 +26,16 @@
                            <children>
                               <TableView fx:id="statTable" layoutX="34.0" layoutY="66.0" prefHeight="331.0" prefWidth="813.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" />
-                                  <TableColumn fx:id="tcFile" prefWidth="98.0" text="File" />
+                                    <TableColumn fx:id="gcType" prefWidth="98.0" text="" />
                                     <TableColumn fx:id="tcNum" prefWidth="75.0" text="Num" />
                                     <TableColumn fx:id="tcNumPerc" prefWidth="100.0" text="Num%" />
+                                    <TableColumn fx:id="tcTocalGc" prefWidth="88.0" text="TotalGC[secs]" />
                                     <TableColumn fx:id="tcTocalGcPerc" prefWidth="88.0" text="TotalGC%" />
                                     <TableColumn fx:id="tcOverhead" prefWidth="120.0" text="Overhead" />
-                                    <TableColumn fx:id="tcAvg" prefWidth="101.0" text="Avg" />
-                                    <TableColumn fx:id="tbSigma" prefWidth="110.0" text="Sigma" />
-                                    <TableColumn fx:id="tcMin" prefWidth="103.0" text="Min" />
-                                    <TableColumn fx:id="tcMax" prefWidth="141.0" text="Max" />
+                                    <TableColumn fx:id="tcAvg" prefWidth="101.0" text="Avg[secs]" />
+                                    <TableColumn fx:id="tbSigma" prefWidth="110.0" text="Sigma[secs]" />
+                                    <TableColumn fx:id="tcMin" prefWidth="103.0" text="Min[secs]" />
+                                    <TableColumn fx:id="tcMax" prefWidth="141.0" text="Max[secs]" />
                                 </columns>
                               </TableView>
                            </children>

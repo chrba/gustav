@@ -38,13 +38,13 @@ public class Controller {
     private TableColumn<Statistics, Number> tcNum;
 
     @FXML
-    private TableColumn<?, ?> tbSigma;
+    private TableColumn<Statistics, Number> tbSigma;
 
     @FXML
     private LineChart<?, ?> lcGCTimeline;
 
     @FXML
-    private TableColumn<Statistics, String> tcFile;
+    private TableColumn<Statistics, String> gcType;
 
     @FXML
     private BarChart<?, ?> gcMin;
@@ -54,6 +54,10 @@ public class Controller {
 
     @FXML
     private BarChart<?, ?> bcTotalGC;
+
+    @FXML
+    private TableColumn<Statistics, Number> tcTocalGc;
+
 
     @FXML
     private TableColumn<Statistics, Number> tcNumPerc;
@@ -71,16 +75,16 @@ public class Controller {
     private Button btnRemove;
 
     @FXML
-    private TableColumn<?, ?> tcTocalGcPerc;
+    private TableColumn<Statistics, Number> tcTocalGcPerc;
 
     @FXML
     private ListView<File> fileListView;
 
     @FXML
-    private TableColumn<?, ?> tcMax;
+    private TableColumn<Statistics, Number> tcMax;
 
     @FXML
-    private TableColumn<?, ?> tcOverhead;
+    private TableColumn<Statistics, Number> tcOverhead;
 
     @FXML
     private PieChart pcGCStats;
@@ -92,10 +96,10 @@ public class Controller {
     private BarChart<?, ?> bcNumPerc;
 
     @FXML
-    private TableColumn<?, ?> tcAvg;
+    private TableColumn<Statistics, Number> tcAvg;
 
     @FXML
-    private TableColumn<?, ?> tcMin;
+    private TableColumn<Statistics, Number> tcMin;
 
     @FXML
     private Button btnAdd;
@@ -120,9 +124,16 @@ public class Controller {
     	final List<GCEvent> events = parserRegistry.parse(file);
     	LOG.debug("Found {} GCEvents", events.size());
 
-    	tcFile.setCellValueFactory(s -> s.getValue().fileName);
+    	gcType.setCellValueFactory(s -> s.getValue().name);
     	tcNum.setCellValueFactory(s -> s.getValue().num);
     	tcNumPerc.setCellValueFactory(s -> s.getValue().numPerc);
+    	tcTocalGc.setCellValueFactory(s -> s.getValue().secs);
+    	tcTocalGcPerc.setCellValueFactory(s -> s.getValue().secsPerc);
+    	tcOverhead.setCellValueFactory(s -> s.getValue().overhead);
+    	tcAvg.setCellValueFactory(s -> s.getValue().avg);
+    	tbSigma.setCellValueFactory(s -> s.getValue().sigma);
+    	tcMin.setCellValueFactory(s -> s.getValue().min);
+    	tcMax.setCellValueFactory(s -> s.getValue().max);
 
     	final Statistics s = new Statistics(file.getName(), "ParNew", events, events);
     	final ObservableList<Statistics> data =
