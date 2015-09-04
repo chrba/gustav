@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.parser.ParserRegistry;
 import de.chrb.gustav.model.statistics.Statistics;
+import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -135,9 +136,9 @@ public class Controller {
     	tcMin.setCellValueFactory(s -> s.getValue().min);
     	tcMax.setCellValueFactory(s -> s.getValue().max);
 
-    	final Statistics s = new Statistics(file.getName(), "ParNew", events, events);
+    	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer();
     	final ObservableList<Statistics> data =
-    	        FXCollections.observableArrayList(s);
+    	        FXCollections.observableArrayList(analyzer.create(events));
 
     	statTable.setItems(data);
 

@@ -7,6 +7,10 @@ import java.util.List;
 
 import de.chrb.gustav.model.message.GCParser;
 import de.chrb.gustav.model.parser.ParserRegistry;
+import de.chrb.gustav.model.parser.cms.ConcurrentMarkParser;
+import de.chrb.gustav.model.parser.cms.ConcurrentResetParser;
+import de.chrb.gustav.model.parser.cms.ConcurrentSweepParser;
+import de.chrb.gustav.model.parser.cms.PreCleanParser;
 import de.chrb.gustav.model.parser.parnew.ParNewParser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -44,11 +48,11 @@ public class Main extends Application {
 
 	public ParserRegistry getParserRegistry() {
 		final List<GCParser> parsers = Arrays.asList(
-				new ParNewParser());
-				//new ConcurrentMarkParser(),
-				//new ConcurrentResetParser(),
-				//new ConcurrentSweepParser(),
-				//new PreCleanParser());
+				new ParNewParser(),
+				new ConcurrentMarkParser(),
+				new ConcurrentResetParser(),
+				new ConcurrentSweepParser(),
+				new PreCleanParser());
 		return new ParserRegistry(parsers);
 	}
 

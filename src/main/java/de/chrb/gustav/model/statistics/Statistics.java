@@ -33,7 +33,7 @@ public class Statistics {
 	public final ReadOnlyLongProperty median;
 
 
-	public Statistics(final String name, final String gcEventName, final List<GCEvent> events, final List<GCEvent> allEvents) {
+	public Statistics(final String name, final List<GCEvent> events, final List<GCEvent> allEvents) {
 		this.name = new ReadOnlyStringWrapper(name).getReadOnlyProperty();
 		this.num = new ReadOnlyIntegerWrapper(events.size()).getReadOnlyProperty();
 		this.numPerc = new ReadOnlyDoubleWrapper(numPerc(events, allEvents)).getReadOnlyProperty();
