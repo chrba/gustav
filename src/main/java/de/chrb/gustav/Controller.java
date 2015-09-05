@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -33,7 +34,7 @@ public class Controller {
 	private Parent root;
 
     @FXML
-    private BarChart<?, ?> bcAvg;
+    private BarChart<String, Double> bcAvg;
 
     @FXML
     private TableColumn<Statistics, Number> tcNum;
@@ -64,10 +65,10 @@ public class Controller {
     private TableColumn<Statistics, Number> tcNumPerc;
 
     @FXML
-    private BarChart<?, ?> bcOverhead;
+    private BarChart<String, Double> bcOverhead;
 
     @FXML
-    private BarChart<?, ?> bcNum;
+    private BarChart<String, Integer> bcNum;
 
     @FXML
     private TableView<Statistics> statTable;
@@ -136,14 +137,19 @@ public class Controller {
     	tcMin.setCellValueFactory(s -> s.getValue().min);
     	tcMax.setCellValueFactory(s -> s.getValue().max);
 
-    	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer();
+    	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(events);
     	final ObservableList<Statistics> data =
-    	        FXCollections.observableArrayList(analyzer.create(events));
+    	        FXCollections.observableArrayList(analyzer.statisticsList());
 
     	statTable.setItems(data);
 
     	final ObservableList<File> items = FXCollections.observableArrayList(file);
     	fileListView.setItems(items);
+
+
+    	bcNum.getData().add(analyzer.createNumSeries());
+    	bcOverhead.getData().add(analyzer.createOverheadSeries());
+    	bcAvg.getData().add(analyzer.createAvgSeries());
     }
 
     @FXML
