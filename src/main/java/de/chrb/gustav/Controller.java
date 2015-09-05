@@ -49,13 +49,13 @@ public class Controller {
     private TableColumn<Statistics, String> gcType;
 
     @FXML
-    private BarChart<?, ?> gcMin;
+    private BarChart<String, Long> bcMin;
 
     @FXML
     private LineChart<?, ?> lcGCPauseDistribution;
 
     @FXML
-    private BarChart<?, ?> bcTotalGC;
+    private BarChart<String, Double> bcTotalGC;
 
     @FXML
     private TableColumn<Statistics, Number> tcTocalGc;
@@ -92,10 +92,10 @@ public class Controller {
     private PieChart pcGCStats;
 
     @FXML
-    private BarChart<?, ?> bcMax;
+    private BarChart<String, Long> bcMax;
 
     @FXML
-    private BarChart<?, ?> bcNumPerc;
+    private BarChart<String, Double> bcNumPerc;
 
     @FXML
     private TableColumn<Statistics, Number> tcAvg;
@@ -110,7 +110,7 @@ public class Controller {
     private TextArea tfImportantDataTextArea;
 
     @FXML
-    private BarChart<?, ?> gcSigma;
+    private BarChart<String, Double> bcSigma;
 
 	private ParserRegistry parserRegistry;
 
@@ -150,6 +150,12 @@ public class Controller {
     	bcNum.getData().add(analyzer.createNumSeries());
     	bcOverhead.getData().add(analyzer.createOverheadSeries());
     	bcAvg.getData().add(analyzer.createAvgSeries());
+    	bcMax.getData().add(analyzer.createMaxSeries());
+    	bcMin.getData().add(analyzer.createMinSeries());
+    	bcSigma.getData().add(analyzer.createSigmaSeries());
+    	bcNumPerc.getData().add(analyzer.createNumPercSeries());
+    	bcTotalGC.getData().add(analyzer.createSecsPercSeries());
+
     }
 
     @FXML
