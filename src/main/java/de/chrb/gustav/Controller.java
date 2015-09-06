@@ -167,8 +167,9 @@ public class Controller {
     	series.getData().add(new XYChart.Data<>(10.3442, 20));
     	series.getData().add(new XYChart.Data<>(12.1, 4));
     	series.getData().add(new XYChart.Data<>(20.4, 40));
-    	lcGCTimeline.getData().add(analyzer.createTimeline());
-    	lcGCTimeline.setCreateSymbols(false);
+
+    	lcGCTimeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
+    	//lcGCTimeline.setCreateSymbols(false);
     }
 
     @FXML
