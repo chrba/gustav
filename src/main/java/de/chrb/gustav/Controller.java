@@ -43,7 +43,7 @@ public class Controller {
     private TableColumn<Statistics, Number> tbSigma;
 
     @FXML
-    private LineChart<?, ?> lcGCTimeline;
+    private LineChart<Double, Double> lcGCTimeline;
 
     @FXML
     private TableColumn<Statistics, String> gcType;
@@ -156,6 +156,19 @@ public class Controller {
     	bcNumPerc.getData().add(analyzer.createNumPercSeries());
     	bcTotalGC.getData().add(analyzer.createSecsPercSeries());
 
+
+    	//
+    	//lcGCTimeline
+    	XYChart.Series<Double, Integer> series = new XYChart.Series<Double, Integer>();
+    	series.getData().add(new XYChart.Data<>(1.0, 10));
+    	series.getData().add(new XYChart.Data<>(4.3, 11));
+    	series.getData().add(new XYChart.Data<>(5.1, 2));
+    	series.getData().add(new XYChart.Data<>(7.876, 7));
+    	series.getData().add(new XYChart.Data<>(10.3442, 20));
+    	series.getData().add(new XYChart.Data<>(12.1, 4));
+    	series.getData().add(new XYChart.Data<>(20.4, 40));
+    	lcGCTimeline.getData().add(analyzer.createTimeline());
+    	lcGCTimeline.setCreateSymbols(false);
     }
 
     @FXML

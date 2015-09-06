@@ -1,5 +1,6 @@
 package de.chrb.gustav.model.statistics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,9 +11,12 @@ import javafx.scene.chart.XYChart;
 public class StatisticsAnalyzer {
 	//private final Map<String, Statistics> statisticsByName;
 	private final List<Statistics> statistics;
+	private final List<GCEvent> sortedEvents;
 
 	public StatisticsAnalyzer(final List<GCEvent> events) {
-		statistics = events.stream()
+		this.sortedEvents = new ArrayList<>(events);
+		this.sortedEvents.sort((e1, e2) -> Double.compare(e1.getTimeStats().getElappsedTime(), e2.getTimeStats().getElappsedTime()));
+		this.statistics = events.stream()
 			.collect(Collectors.groupingBy(e -> e.getName()))
 			.entrySet().stream()
 			.map( e -> new Statistics(e.getKey(), e.getValue(), events))
@@ -73,6 +77,13 @@ public class StatisticsAnalyzer {
 	public XYChart.Series<String, Long> createMedianSeries() {
 		XYChart.Series<String, Long> series = new XYChart.Series<>();
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.median.get())));
+		return series;
+	}
+
+	public XYChart.Series<Double, Double> createTimeline() {
+
+		XYChart.Series<Double, Double> series = new XYChart.Series<>();
+		this.sortedEvents.forEach(e ->  series.getData().add(new XYChart.Data<>(e.getTimeStats().getElappsedTime(), e.getTimeStats().getDuration())));
 		return series;
 	}
 }
