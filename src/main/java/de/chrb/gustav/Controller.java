@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -43,7 +44,7 @@ public class Controller {
     private TableColumn<Statistics, Number> tbSigma;
 
     @FXML
-    private LineChart<Double, Double> lcGCTimeline;
+    private ScatterChart<Double, Double> lcGCTimeline;
 
     @FXML
     private TableColumn<Statistics, String> gcType;

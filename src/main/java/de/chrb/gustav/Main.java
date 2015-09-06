@@ -25,6 +25,11 @@ public class Main extends Application {
 		try {
 			 final AnchorPane rootLayout = loadRootLayout();
 			 final Scene scene = new Scene(rootLayout);
+
+			 final String css = Main.class.getResource("view/style.css").toExternalForm();
+			 scene.getStylesheets().clear();
+			 scene.getStylesheets().add(css);
+
 			 primaryStage.setScene(scene);
 			 primaryStage.show();
 
@@ -36,6 +41,8 @@ public class Main extends Application {
 	private AnchorPane loadRootLayout() throws IOException {
 		final FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
+
+
 		 final AnchorPane root = (AnchorPane) loader.load();
 		 final Controller controller = (Controller)loader.getController();
 		 controller.setGCParserRegistry(getParserRegistry());
