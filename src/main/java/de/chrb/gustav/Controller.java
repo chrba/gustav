@@ -54,7 +54,7 @@ public class Controller {
     private BarChart<String, Long> bcMin;
 
     @FXML
-    private LineChart<?, ?> lcGCPauseDistribution;
+    private ScatterChart<Long, Long> lcGCPauseDistribution;
 
     @FXML
     private BarChart<String, Double> bcTotalGC;
@@ -171,6 +171,8 @@ public class Controller {
     	series.getData().add(new XYChart.Data<>(20.4, 40));
 
     	lcGCTimeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
+
+    	lcGCPauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
     	//lcGCTimeline.setCreateSymbols(false);
     }
 

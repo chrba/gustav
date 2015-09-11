@@ -96,4 +96,26 @@ public class StatisticsAnalyzer {
 		events.forEach(e ->  series.getData().add(new XYChart.Data<>(e.getTimeStats().getElappsedTime(), e.getTimeStats().getDuration())));
 		return series;
 	}
+
+	public List<XYChart.Series<Long, Long>> createPauseDistribution() {
+
+		final List<XYChart.Series<Long, Long>> serieses = new ArrayList<>();
+		this.eventsByName.forEach((k, v) -> serieses.add(createPauseDistributionSeries(v)));
+		return serieses;
+	}
+
+	private Series<Long, Long> createPauseDistributionSeries(List<GCEvent> events) {
+		XYChart.Series<Long, Long> series = new XYChart.Series<>();
+		final Map<Long, Long> map = events.stream().collect(Collectors.groupingBy(e -> duration(e), Collectors.counting()));
+
+		map.forEach((k, v) -> series.getData().add(new XYChart.Data<>(k, v)));
+		return series;
+	}
+	private long duration(GCEvent e) {
+		final int fac = 100;
+		final double d = (e.getTimeStats().getDuration() * 1000) / fac;
+		final long i = Math.round(d);
+		final long duration = i * fac;
+		return duration;
+	}
 }
