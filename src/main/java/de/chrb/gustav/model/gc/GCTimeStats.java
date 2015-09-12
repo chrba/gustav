@@ -9,13 +9,16 @@ import java.time.LocalDateTime;
  * @author Christian Bannes
  */
 public class GCTimeStats {
-	/** the date and time when the GC was done */
 	private final LocalDateTime timestamp;
-	/** elappsed time since jvm startup */
 	private final double ellapsedTimeInSecs;
-	/** the duration of the gc in msecs */
 	private final double durationInSecs;
 
+	/**
+	 * Creates a time statistics object for one {@link GCEvent}
+	 * @param timestamp the time the event occured
+	 * @param ellapsedTimeInSecs the elappsed time since jvm startup
+	 * @param durationInSecs the duration of a {@link GCEvent}
+	 */
 	public GCTimeStats(final LocalDateTime timestamp, final double ellapsedTimeInSecs, final double durationInSecs) {
 		this.timestamp = timestamp;
 		this.ellapsedTimeInSecs = ellapsedTimeInSecs;
@@ -23,16 +26,27 @@ public class GCTimeStats {
 	}
 
 	/**
+	 * Returns the duration of a GC event
+	 *
 	 * @return the duration of a GC event in msecs
 	 */
 	public double getDuration() {
 		return this.durationInSecs;
 	}
 
+	/**
+	 * The time when an GC event occures
+	 * @return
+	 */
 	public LocalDateTime getTimestamp() {
 		return this.timestamp;
 	}
 
+	/**
+	 * Returns the elappsed time since jvm startup
+	 *
+	 * @return the elappsed time
+	 */
 	public double getElappsedTime() {
 		return this.ellapsedTimeInSecs;
 	}
