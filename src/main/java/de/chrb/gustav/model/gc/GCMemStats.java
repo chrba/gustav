@@ -7,13 +7,17 @@ package de.chrb.gustav.model.gc;
  * @author Christian Bannes
  */
 public class GCMemStats {
-	/** the occupancy of a generational memory (younggen, oldgen or permgen) before gc */
+
 	private final int occupancyBeforeGc;
-	/** the occupancy of a generational memory (younggen, oldgen or permgen) after gc */
 	private final int occupancyAfterGc;
-	/** not the occupancy but the total size of the generational memory (youngge, oldgen or permgen) */
 	private final int totalCapacity;
 
+	/**
+	 * Use this constructor then occupancy before and after GC is the same.
+	 *
+	 * @param occupancy the total occupancy
+	 * @param totalCapacity the total capacity
+	 */
 	public GCMemStats(final int occupancy, final int totalCapacity) {
 		this.occupancyAfterGc = occupancy;
 		this.occupancyBeforeGc = occupancy;
@@ -23,6 +27,10 @@ public class GCMemStats {
 	/**
 	 * The occupancy and total size of a generational memory (younggen, oldgen or permgen). The
 	 * values must all belong to the same generational memory.
+	 *
+	 * @param occupancyBeforeGc the occupancy before GC in bytes
+	 * @param occupancyAfterGc the occupancy after GC in bytes
+	 * @param totalCapacity the total capacity
 	 */
 	public GCMemStats(final int occupancyBeforeGc, final int occupancyAfterGc, final int totalCapacity) {
 		this.occupancyAfterGc = occupancyAfterGc;
@@ -30,14 +38,31 @@ public class GCMemStats {
 		this.totalCapacity = totalCapacity;
 	}
 
+	/**
+	 * Returns the occupancy of a generational memory (younggen, oldgen or permgen)
+	 * before gc
+	 *
+	 * @return the occupancy in bytes
+	 */
 	public int occupancyBeforeGc() {
 		return this.occupancyBeforeGc;
 	}
 
+	/**
+	 * Returns the occupancy of a generational memory (younggen, oldgen or permgen)
+	 * after gc
+	 *
+	 * @return the occupancy in bytes
+	 */
 	public int occupancyAfterGc() {
 		return this.occupancyAfterGc;
 	}
 
+	/**
+	 * The total size of the generational memory (youngge, oldgen or permgen)
+	 *
+	 * @return the total capacity in bytes
+	 */
 	public int totalCapacity() {
 		return this.totalCapacity;
 	}

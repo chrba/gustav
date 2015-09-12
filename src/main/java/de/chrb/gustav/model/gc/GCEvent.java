@@ -3,6 +3,7 @@ package de.chrb.gustav.model.gc;
 
 /**
  * Represents one minor or major garbage collection event of the JVM.
+ *
  * @author Christian Bannes
  */
 public interface GCEvent  {

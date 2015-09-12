@@ -12,6 +12,11 @@ public class FullGCEvent extends AbstractGCEvent {
 	/** the unique name of this garbage collector */
 	private final static String NAME = "FULL GC";
 
+	/**
+	 * Creates a new GC event that represents a FULL GC
+	 *
+	 * @param timeStats statistics of this GC event
+	 */
 	public FullGCEvent(final GCTimeStats timeStats) {
 		super(NAME, timeStats);
 	}
