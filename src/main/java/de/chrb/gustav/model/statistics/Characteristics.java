@@ -16,9 +16,12 @@ public class Characteristics {
 	}
 	public String text() {
 		final StringBuffer buffer = new StringBuffer();
-		buffer.append("Tuning Data:\n");
+		buffer.append("Tuning Data (average):\n");
 		buffer.append("----------------\n\n");
-		buffer.append("Allocation Rate: " + this.allocationRate() + " MB/sec (on average)");
+		buffer.append("Allocation Rate: " + this.allocationRate() + " MB/sec\n");
+		buffer.append("Promotion Rate: " + "20 MB/sec\n");
+		buffer.append("Time between two minor collections: 20 sec\n");
+		buffer.append("Time between two major collections: 4.3 hours\n");
 
 		return buffer.toString();
 	}
@@ -38,7 +41,9 @@ public class Characteristics {
 
 		//2. get tenured at initial mark
 
-		//2-1 = this added
+		//2-1 = garbage added
+
+		//calc garbage added / time between full gcs
 
 
 		return 0D;
@@ -52,7 +57,6 @@ public class Characteristics {
 	 * @return the allocation rate, always >= 0
 	 */
 	public long allocationRate() {
-		//1. get young gen capacity
 		final Optional<GCEvent> minor = this.allEvents.stream().filter(e -> e.isMinor()).findFirst();
 		if(!minor.isPresent() || !minor.get().getMemStats().isPresent()) return 0;
 
@@ -76,6 +80,15 @@ public class Characteristics {
 		}
 		return s / elapsedTimes.length;
 	}
+
+	public int liveDataSize() {
+		return 0;
+	}
+
+	public int timeBetwenTwoYoungGen() {
+		return 0;
+	}
+
 
 	//Checks:
 	// oldgen >= 1.5 * livedata size
