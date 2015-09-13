@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.parser.ParserRegistry;
+import de.chrb.gustav.model.statistics.Characteristics;
 import de.chrb.gustav.model.statistics.Statistics;
 import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
 import javafx.collections.FXCollections;
@@ -177,6 +178,9 @@ public class Controller {
 
     	//pcGCStats.
     	pcGCStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
+
+    	final Characteristics c = new Characteristics(events);
+    	tfImportantDataTextArea.setText(c.text());
 
     }
 

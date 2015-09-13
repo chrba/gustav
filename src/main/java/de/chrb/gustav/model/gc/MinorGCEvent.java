@@ -37,10 +37,10 @@ public class MinorGCEvent extends AbstractGCEvent {
 	}
 
 	/**
-	 * @return always false
+	 * @return always true
 	 */
 	@Override
 	public boolean isMinor() {
-		return false;
+		return true;
 	}
 }

@@ -9,6 +9,20 @@ import de.chrb.gustav.model.gc.GCEvent;
 
 public class Characteristics {
 
+	private List<GCEvent> allEvents;
+
+	public Characteristics(final List<GCEvent> allEvents) {
+		this.allEvents = allEvents;
+	}
+	public String text() {
+		final StringBuffer buffer = new StringBuffer();
+		buffer.append("Tuning Data:\n");
+		buffer.append("----------------\n\n");
+		buffer.append("Allocation Rate: " + this.allocationRate() + " MB/sec (on average)");
+
+		return buffer.toString();
+	}
+
 	/**
 	 * Determines the garbage in mb that is moved to the old gen
 	 * per secs (on average).
@@ -20,6 +34,13 @@ public class Characteristics {
 	public double promotionRate(final List<GCEvent> allEvents) {
 		//how fillhow full after gc
 
+		//1. get tenured after fullgc
+
+		//2. get tenured at initial mark
+
+		//2-1 = this added
+
+
 		return 0D;
 	}
 
@@ -30,21 +51,21 @@ public class Characteristics {
 	 *
 	 * @return the allocation rate, always >= 0
 	 */
-	public double allocationRate(final List<GCEvent> allEvents) {
+	public long allocationRate() {
 		//1. get young gen capacity
-		final Stream<GCEvent> minorEvents =  allEvents.stream().filter(e -> e.isMinor());
-		final Optional<GCEvent> minor = minorEvents.findFirst();
-		if(!minor.isPresent() || !minor.get().getMemStats().isPresent()) return 0.0;
+		final Optional<GCEvent> minor = this.allEvents.stream().filter(e -> e.isMinor()).findFirst();
+		if(!minor.isPresent() || !minor.get().getMemStats().isPresent()) return 0;
 
 		final int totalYoungGenCapacity = minor.get()
 					.getMemStats().get()
 					.getGenerationChange()
 					.totalCapacity();
 
-		return totalYoungGenCapacity / avgTimeBetweenEvents(minorEvents);
+		final Stream<GCEvent> minorEvents =  this.allEvents.stream().filter(e -> e.isMinor());
+		return Math.round(totalYoungGenCapacity / avgTimeBetweenEvents(minorEvents) / 1000.0);
 	}
 
-	private double avgTimeBetweenEvents(final Stream<GCEvent> minorEvents) {
+	private int avgTimeBetweenEvents(final Stream<GCEvent> minorEvents) {
 		final double[] elapsedTimes = minorEvents
 			.mapToDouble(e -> e.getTimeStats().getElappsedTime())
 			.toArray();
