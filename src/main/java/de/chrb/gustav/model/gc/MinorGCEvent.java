@@ -1,5 +1,7 @@
 package de.chrb.gustav.model.gc;
 
+import java.util.Optional;
+
 /**
  * Represents one garbage collection event of the
  * parallel minor garbage collector (PsYoungGen). The
@@ -9,16 +11,16 @@ package de.chrb.gustav.model.gc;
  * @author Christian Bannes
  */
 public class MinorGCEvent extends AbstractGCEvent {
-	/** the change of young generation during this gc event */
-	private GCMemStats youngGenChange;
-	/** the change ofl old generation during this gc event */
-	private GCMemStats oldGenChange;
 
-
-	public MinorGCEvent(final String name, final GCTimeStats timeStats, final GCMemStats youngGenChange, final GCMemStats oldGenChange) {
-		super(name, timeStats);
-		this.youngGenChange = youngGenChange;
-		this.oldGenChange = oldGenChange;
+	/**
+	 * Creates a minor gc event
+	 *
+	 * @param name the name of the minor gc event
+	 * @param timeStats timing statistics
+	 * @param memStats memory statistics
+	 */
+	public MinorGCEvent(final String name, final GCTimeStats timeStats, final CombinedGCMemStats memStats) {
+		super(name, timeStats, Optional.of(memStats));
 	}
 
 	/**
@@ -31,14 +33,11 @@ public class MinorGCEvent extends AbstractGCEvent {
 		return false;
 	}
 
-	public GCMemStats getYoungGenChange() {
-		return this.youngGenChange;
+	/**
+	 * @return always false
+	 */
+	@Override
+	public boolean isMinor() {
+		return false;
 	}
-
-	public GCMemStats getOldGenChange() {
-		return this.oldGenChange;
-	}
-
-
-
 }

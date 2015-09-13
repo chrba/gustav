@@ -3,6 +3,7 @@ package de.chrb.gustav.model.parser.parnew;
 
 import javax.annotation.RegEx;
 
+import de.chrb.gustav.model.gc.CombinedGCMemStats;
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.gc.GCMemStats;
 import de.chrb.gustav.model.gc.GCTimeStats;
@@ -70,7 +71,7 @@ public class ParNewParser extends AbstractParser {
 		final GCMemStats oldGenChange = readOldGenChange(match);
 		final GCTimeStats timeStats = readTimeStats(match);
 
-		return new MinorGCEvent("ParNew", timeStats, youngGenChange, oldGenChange);
+		return new MinorGCEvent("ParNew", timeStats, new CombinedGCMemStats(youngGenChange, oldGenChange));
 	}
 
 	/**

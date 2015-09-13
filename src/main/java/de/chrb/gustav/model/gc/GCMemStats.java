@@ -1,11 +1,13 @@
 package de.chrb.gustav.model.gc;
 
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Statistics of a generational memory (younggen, oldgen or permgen) before and after a gc.
  *
  * @author Christian Bannes
  */
+@Immutable
 public class GCMemStats {
 
 	private final int occupancyBeforeGc;

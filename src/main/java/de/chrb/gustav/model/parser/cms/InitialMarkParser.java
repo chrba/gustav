@@ -4,6 +4,7 @@ package de.chrb.gustav.model.parser.cms;
 
 import javax.annotation.RegEx;
 
+import de.chrb.gustav.model.gc.CombinedGCMemStats;
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.gc.GCMemStats;
 import de.chrb.gustav.model.gc.GCTimeStats;
@@ -86,7 +87,7 @@ public class InitialMarkParser extends AbstractParser {
 		final GCMemStats heapState = currentStateHeap(match);
 		final GCTimeStats timeStats = readTimeStats(match);
 
-		return new InitialMarkGCEvent("InitialMark", timeStats, tenuredState, heapState);
+		return new InitialMarkGCEvent("InitialMark", timeStats, new CombinedGCMemStats(tenuredState, heapState));
 	}
 
 	/**
