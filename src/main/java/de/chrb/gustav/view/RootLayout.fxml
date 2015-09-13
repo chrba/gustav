@@ -7,6 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
 
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.chrb.gustav.Controller">
@@ -203,7 +204,7 @@
                                                                                  <children>
                                                                                     <HBox prefHeight="247.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                        <children>
-                                                                                          <TextArea fx:id="tfImportantDataTextArea" editable="false" prefHeight="400.0" prefWidth="360.0" text="Important Data&#10;---------------------&#10; - Promition Rate: 1056 kB&#10; - Average Allocation Rate: 1034 kB&#10; - SIgma Range: 10023&#10;&#10;Configuration&#10;---------------------&#10; - Used Garbage Collector: CMS&#10; - Min Heap: 2345&#10; - Max Heap 2345" />
+                                                                                             <HTMLEditor fx:id="tfImportantDataTextArea" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="20.0" layoutY="200.0" prefHeight="400" prefWidth="340" />
                                                                                           <PieChart fx:id="pcGCStats" />
                                                                                        </children>
                                                                                     </HBox>
