@@ -82,7 +82,7 @@ public class Controller {
     private TableColumn<Statistics, Number> tcTocalGcPerc;
 
     @FXML
-    private ListView<File> fileListView;
+    private ListView<String> fileListView;
 
     @FXML
     private TableColumn<Statistics, Number> tcMax;
@@ -145,7 +145,7 @@ public class Controller {
 
     	statTable.setItems(data);
 
-    	final ObservableList<File> items = FXCollections.observableArrayList(file);
+    	final ObservableList<String> items = FXCollections.observableArrayList("file:" + file.getName());
     	fileListView.setItems(items);
 
 
@@ -174,6 +174,10 @@ public class Controller {
 
     	lcGCPauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
     	//lcGCTimeline.setCreateSymbols(false);
+
+    	//pcGCStats.
+    	pcGCStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
+
     }
 
     @FXML

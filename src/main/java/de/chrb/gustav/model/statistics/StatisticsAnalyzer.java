@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import de.chrb.gustav.model.gc.GCEvent;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.util.Callback;
 
 public class StatisticsAnalyzer {
 	//private final Map<String, Statistics> statisticsByName;
@@ -117,5 +119,12 @@ public class StatisticsAnalyzer {
 		final long i = Math.round(d);
 		final long duration = i * fac;
 		return duration;
+	}
+	public List<PieChart.Data> createPieChartData() {
+		final List<PieChart.Data> series = new ArrayList<>();
+
+		this.eventsByName.forEach((k, v) -> series.add(new PieChart.Data(k, v.size())));
+
+		return series;
 	}
 }
