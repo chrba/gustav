@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.gc.GCTimeStats;
-import de.chrb.gustav.model.message.GCParser;
 import de.java.regexdsl.model.Match;
 import de.java.regexdsl.model.Regex;
 

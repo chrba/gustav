@@ -3,9 +3,9 @@ package de.chrb.gustav.model.parser.parnew;
 
 import javax.annotation.RegEx;
 
-import de.chrb.gustav.model.gc.CombinedGCMemStats;
-import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.gc.GCMemStats;
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.gc.GCMemChange;
 import de.chrb.gustav.model.gc.GCTimeStats;
 import de.chrb.gustav.model.gc.MinorGCEvent;
 import de.chrb.gustav.model.parser.AbstractParser;
@@ -67,11 +67,11 @@ public class ParNewParser extends AbstractParser {
 	@Override
 	protected GCEvent createGCEventFrom(final Match match, final String message) {
 
-		final GCMemStats youngGenChange = readYoungGenChange(match);
-		final GCMemStats oldGenChange = readOldGenChange(match);
+		final GCMemChange youngGenChange = readYoungGenChange(match);
+		final GCMemChange oldGenChange = readOldGenChange(match);
 		final GCTimeStats timeStats = readTimeStats(match);
 
-		return new MinorGCEvent("ParNew", timeStats, new CombinedGCMemStats(youngGenChange, oldGenChange));
+		return new MinorGCEvent("ParNew", timeStats, new GCMemStats(youngGenChange, oldGenChange));
 	}
 
 	/**
@@ -79,21 +79,21 @@ public class ParNewParser extends AbstractParser {
 	 * @param match
 	 * @return
 	 */
-	private GCMemStats readYoungGenChange(final Match match)
+	private GCMemChange readYoungGenChange(final Match match)
 	{
 		final int edenBefore = Integer.valueOf(match.getByName("eden->occupancyPriorGc"));
 		final int edenAfter = Integer.valueOf(match.getByName("eden->occupancyAfterGc"));
 		final int edenTotal = Integer.valueOf(match.getByName("eden->totalSize"));
-		final GCMemStats youngGenChange = new GCMemStats(edenBefore, edenAfter, edenTotal);
+		final GCMemChange youngGenChange = new GCMemChange(edenBefore, edenAfter, edenTotal);
 		return youngGenChange;
 	}
 
-	private GCMemStats readOldGenChange(final Match match)
+	private GCMemChange readOldGenChange(final Match match)
 	{
 		final int oldBefore = Integer.valueOf(match.getByName("heap->occupancyPriorGc"));
 		final int oldAfter = Integer.valueOf(match.getByName("heap->occupancyAfterGc"));
 		final int heapTotal = Integer.valueOf(match.getByName("heap->totalSize"));
-		final GCMemStats oldGenChange = new GCMemStats(oldBefore, oldAfter, heapTotal);
+		final GCMemChange oldGenChange = new GCMemChange(oldBefore, oldAfter, heapTotal);
 		return oldGenChange;
 	}
 

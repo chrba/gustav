@@ -34,7 +34,7 @@ public interface GCEvent  {
 	 *
 	 * @return the memory statistics, optional
 	 */
-	@Nonnull Optional<CombinedGCMemStats> getMemStats();
+	@Nonnull Optional<GCMemStats> getMemStats();
 
 	/**
 	 * Timing statistics, e.g. how long did this gc event take, etc.

@@ -4,6 +4,8 @@ package de.chrb.gustav.model.gc;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * Provides common implementations for all {@link GCEvent}s
@@ -14,26 +16,26 @@ public abstract class  AbstractGCEvent implements GCEvent{
 
 	private GCTimeStats timeStats;
 	private final String name;
-	private Optional<CombinedGCMemStats> memStats;
+	private Optional<GCMemStats> memStats;
 
-	public AbstractGCEvent(final String name, final GCTimeStats timeStats, final Optional<CombinedGCMemStats> memStats) {
+	public AbstractGCEvent(final String name, final GCTimeStats timeStats, final Optional<GCMemStats> memStats) {
 		this.name = Objects.requireNonNull(name);
 		this.timeStats = Objects.requireNonNull(timeStats);
 		this.memStats = Objects.requireNonNull(memStats);
 	}
 
 	@Override
-	public GCTimeStats getTimeStats() {
+	@Nonnull public GCTimeStats getTimeStats() {
 		return this.timeStats;
 	}
 
 	@Override
-	public String getName() {
+	@Nonnull public String getName() {
 		return this.name;
 	}
 
 	@Override
-	public final Optional<CombinedGCMemStats> getMemStats() {
+	@Nonnull public final Optional<GCMemStats> getMemStats() {
 		return this.memStats;
 	}
 

@@ -2,6 +2,8 @@ package de.chrb.gustav.model.gc;
 
 import java.util.Optional;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * Represents one garbage collection event of the
  * parallel minor garbage collector (PsYoungGen). The
@@ -10,6 +12,7 @@ import java.util.Optional;
  *
  * @author Christian Bannes
  */
+@Immutable
 public class MinorGCEvent extends AbstractGCEvent {
 
 	/**
@@ -19,7 +22,7 @@ public class MinorGCEvent extends AbstractGCEvent {
 	 * @param timeStats timing statistics
 	 * @param memStats memory statistics
 	 */
-	public MinorGCEvent(final String name, final GCTimeStats timeStats, final CombinedGCMemStats memStats) {
+	public MinorGCEvent(final String name, final GCTimeStats timeStats, final GCMemStats memStats) {
 		super(name, timeStats, Optional.of(memStats));
 	}
 

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import de.chrb.gustav.model.message.GCParser;
+import de.chrb.gustav.model.parser.GCParser;
 import de.chrb.gustav.model.parser.ParserRegistry;
 import de.chrb.gustav.model.parser.cms.ConcurrentMarkParser;
 import de.chrb.gustav.model.parser.cms.ConcurrentResetParser;

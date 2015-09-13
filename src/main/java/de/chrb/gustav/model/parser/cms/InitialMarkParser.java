@@ -4,9 +4,9 @@ package de.chrb.gustav.model.parser.cms;
 
 import javax.annotation.RegEx;
 
-import de.chrb.gustav.model.gc.CombinedGCMemStats;
-import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.gc.GCMemStats;
+import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.gc.GCMemChange;
 import de.chrb.gustav.model.gc.GCTimeStats;
 import de.chrb.gustav.model.parser.AbstractParser;
 import de.chrb.gustav.model.parser.Patterns;
@@ -83,11 +83,11 @@ public class InitialMarkParser extends AbstractParser {
 	@Override
 	protected GCEvent createGCEventFrom(final Match match, final String message) {
 
-		final GCMemStats tenuredState = currentStateTenured(match);
-		final GCMemStats heapState = currentStateHeap(match);
+		final GCMemChange tenuredState = currentStateTenured(match);
+		final GCMemChange heapState = currentStateHeap(match);
 		final GCTimeStats timeStats = readTimeStats(match);
 
-		return new InitialMarkGCEvent("InitialMark", timeStats, new CombinedGCMemStats(tenuredState, heapState));
+		return new InitialMarkGCEvent("InitialMark", timeStats, new GCMemStats(tenuredState, heapState));
 	}
 
 	/**
@@ -95,19 +95,19 @@ public class InitialMarkParser extends AbstractParser {
 	 * @param match
 	 * @return
 	 */
-	private GCMemStats currentStateTenured(final Match match)
+	private GCMemChange currentStateTenured(final Match match)
 	{
 		final int occupancyTenured = Integer.valueOf(match.getByName("tenured->occupancyPriorGc"));
 		final int totalTenuredCapacity = Integer.valueOf(match.getByName("tenured->occupancyAfterGc"));
-		final GCMemStats tenuredState = new GCMemStats(occupancyTenured, totalTenuredCapacity);
+		final GCMemChange tenuredState = new GCMemChange(occupancyTenured, totalTenuredCapacity);
 		return tenuredState;
 	}
 
-	private GCMemStats currentStateHeap(final Match match)
+	private GCMemChange currentStateHeap(final Match match)
 	{
 		final int occupancyHeap = Integer.valueOf(match.getByName("heap->occupancyPriorGc"));
 		final int totalHeapCapacity = Integer.valueOf(match.getByName("heap->occupancyAfterGc"));
-		final GCMemStats heapState = new GCMemStats(occupancyHeap, totalHeapCapacity);
+		final GCMemChange heapState = new GCMemChange(occupancyHeap, totalHeapCapacity);
 		return heapState;
 	}
 

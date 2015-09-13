@@ -2,9 +2,12 @@ package de.chrb.gustav.model.parser.cms;
 
 import java.util.Optional;
 
+import javax.annotation.concurrent.Immutable;
+
 import de.chrb.gustav.model.gc.AbstractGCEvent;
 import de.chrb.gustav.model.gc.GCTimeStats;
 
+@Immutable
 public class ConcurrentPhaseEvent extends AbstractGCEvent {
 
 	public ConcurrentPhaseEvent(final String name, final GCTimeStats timeStats) {

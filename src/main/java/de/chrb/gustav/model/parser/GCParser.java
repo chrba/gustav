@@ -1,4 +1,4 @@
-package de.chrb.gustav.model.message;
+package de.chrb.gustav.model.parser;
 
 import java.util.Optional;
 

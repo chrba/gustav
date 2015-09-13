@@ -2,6 +2,8 @@ package de.chrb.gustav.model.gc;
 
 import java.util.Optional;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * Represents one garbage collection event of the  full gc collector. The FULL GC collector
  * is single threaded and runs in a stop-the-world fashion i.e. all application threads
@@ -9,6 +11,7 @@ import java.util.Optional;
  *
  * @author Christian Bannes
  */
+@Immutable
 public class FullGCEvent extends AbstractGCEvent {
 	/** the unique name of this garbage collector */
 	private final static String NAME = "FULL GC";
@@ -18,7 +21,7 @@ public class FullGCEvent extends AbstractGCEvent {
 	 *
 	 * @param timeStats statistics of this GC event
 	 */
-	public FullGCEvent(final GCTimeStats timeStats, final CombinedGCMemStats memStats) {
+	public FullGCEvent(final GCTimeStats timeStats, final GCMemStats memStats) {
 		super(NAME, timeStats, Optional.of(memStats));
 	}
 

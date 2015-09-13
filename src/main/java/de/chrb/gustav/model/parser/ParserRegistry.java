@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.chrb.gustav.model.gc.GCEvent;
-import de.chrb.gustav.model.message.GCParser;
 
 
 /**
