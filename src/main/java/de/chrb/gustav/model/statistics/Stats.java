@@ -1,6 +1,7 @@
 package de.chrb.gustav.model.statistics;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,6 +61,7 @@ public class Stats {
 			.average()
 			.orElse(0.0);
 	}
+
 
 	/**
 	 * Returns the median of the given collection

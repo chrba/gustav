@@ -1,5 +1,6 @@
 package de.chrb.gustav.model.statistics;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,11 +45,11 @@ public class Statistics {
 		final List<Long> secsList = readSecsList(events);
 
 		this.secs = new ReadOnlyDoubleWrapper(totalSecs).getReadOnlyProperty();
-		this.secsPerc = new ReadOnlyDoubleWrapper(GCSecsPercent(totalSecs, secsAll)).getReadOnlyProperty();
+		this.secsPerc = new ReadOnlyDoubleWrapper(gcSecsPercent(totalSecs, secsAll)).getReadOnlyProperty();
 		this.overhead = new ReadOnlyDoubleWrapper(overhead(totalSecs, allEvents)).getReadOnlyProperty();
 
-		this.avg = new ReadOnlyDoubleWrapper(Stats.average(secsList)).getReadOnlyProperty();
-		this.sigma = new ReadOnlyDoubleWrapper(Math.sqrt(Stats.variance(secsList))).getReadOnlyProperty();
+		this.avg = new ReadOnlyDoubleWrapper(round(Stats.average(secsList))).getReadOnlyProperty();
+		this.sigma = new ReadOnlyDoubleWrapper(round(Math.sqrt(Stats.variance(secsList)))).getReadOnlyProperty();
 
 		this.max = new ReadOnlyLongWrapper(secsList.isEmpty()? 0 : Collections.max(secsList)).getReadOnlyProperty();
 		this.min = new ReadOnlyLongWrapper(secsList.isEmpty()? 0 : Collections.min(secsList)).getReadOnlyProperty();
@@ -61,26 +62,32 @@ public class Statistics {
 				.collect(Collectors.toList());
 	}
 
+	private double round(final double d) {
+		final BigDecimal dec = new BigDecimal(String.valueOf(d)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		return dec.doubleValue();
+	}
+
 	private double numPerc(final List<GCEvent> events, final List<GCEvent> allEvents) {
-		return allEvents.isEmpty()? 0 :events.size() / (double)allEvents.size() * 100;
+		return allEvents.isEmpty()? 0 : round(events.size() / (double)allEvents.size() * 100);
 	}
 
 	private double sumSecs(final List<GCEvent> vals) {
 		return vals.stream()
 			.map(v -> v.getTimeStats().getDuration())
 			.mapToDouble(Double::doubleValue)
+			.map(this::round)
 			.sum();
 	}
 
-	private double GCSecsPercent(final double totalSecs, final double totalSecsAllEvents) {
-		return totalSecsAllEvents == 0? 0 : totalSecs / totalSecsAllEvents * 100;
+	private double gcSecsPercent(final double totalSecs, final double totalSecsAllEvents) {
+		return totalSecsAllEvents == 0? 0 : round(totalSecs / totalSecsAllEvents * 100);
 	}
 
 	public double overhead(final double totalSecs, final List<GCEvent> allEvents) {
 		final double totalElapsedTimeSinceMeasurement = calcTotalTime(allEvents);
 
 		return totalElapsedTimeSinceMeasurement == 0? 0
-				: totalSecs / totalElapsedTimeSinceMeasurement * 100;
+				: round(totalSecs / totalElapsedTimeSinceMeasurement * 100);
 	}
 
 	private double calcTotalTime(List<GCEvent> events) {
