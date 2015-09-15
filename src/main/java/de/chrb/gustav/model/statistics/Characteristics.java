@@ -15,6 +15,7 @@ public class Characteristics {
 		this.allEvents = allEvents;
 	}
 	public String text() {
+		/*
 		final StringBuffer buffer = new StringBuffer();
 		buffer.append("Tuning Data (average):\n");
 		buffer.append("----------------\n\n");
@@ -24,6 +25,18 @@ public class Characteristics {
 		buffer.append("Time between two major collections: 4.3 hours\n");
 
 		return buffer.toString();
+		*/
+		final String s = "" +
+		"<div style='line-height: 25px;color: #444; font-family: Gill Sans, Verdana;'><h3>Tuning Data</h3>" +
+		"<div style='font-size:11pt'><ul>" +
+		"<li>Promotion Rate: 234 Mb/s</li>" +
+		"<li>Allcocation Rate: 23 Mb/s</li>" +
+		"<li>Live Data: 234 Mb/s</li>" +
+		"<li>Time between minor collections: 100 s</li>" +
+		"<li>Time between major collections: 32 s</li>" +
+		"</ul></div></div>";
+
+		return s;
 	}
 
 	/**
