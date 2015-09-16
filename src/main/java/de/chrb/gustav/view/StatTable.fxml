@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+ <TableView fx:controller="de.chrb.gustav.StatTableController" fx:id="statTable" layoutX="34.0" layoutY="66.0" prefHeight="371.0" prefWidth="813.0"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+    <columns>
+        <TableColumn fx:id="gcType" prefWidth="130.0" text="" />
+        <TableColumn fx:id="tcNum" prefWidth="75.0" text="Num" />
+        <TableColumn fx:id="tcNumPerc" prefWidth="100.0" text="Num%" />
+        <TableColumn fx:id="tcTocalGc" prefWidth="88.0" text="TotalGC[secs]" />
+        <TableColumn fx:id="tcTocalGcPerc" prefWidth="88.0" text="TotalGC%" />
+        <TableColumn fx:id="tcOverhead" prefWidth="120.0" text="Overhead" />
+        <TableColumn fx:id="tcAvg" prefWidth="101.0" text="Avg[secs]" />
+        <TableColumn fx:id="tbSigma" prefWidth="110.0" text="Sigma[secs]" />
+        <TableColumn fx:id="tcMin" prefWidth="103.0" text="Min[secs]" />
+        <TableColumn fx:id="tcMax" prefWidth="141.0" text="Max[secs]" />
+    </columns>
+  </TableView>

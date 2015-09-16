@@ -25,6 +25,8 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="1178.0">
                            <children>
+                           	<fx:include fx:id="statTable" source="StatTable.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                             <!--
                               <TableView fx:id="statTable" layoutX="34.0" layoutY="66.0" prefHeight="371.0" prefWidth="813.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
                                 <columns>
@@ -40,6 +42,7 @@
                                     <TableColumn fx:id="tcMax" prefWidth="141.0" text="Max[secs]" />
                                 </columns>
                               </TableView>
+                              -->
                            </children>
                         </AnchorPane>
                       <AnchorPane>
