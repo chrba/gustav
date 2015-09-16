@@ -125,9 +125,13 @@ public class Controller {
 	private ParserRegistry parserRegistry;
 
 
+	final ObservableList<String> files = FXCollections.observableArrayList();
+
 	@FXML
 	public void initialize() {
 		hideHTMLEditorToolbars(tfImportantDataTextArea);
+
+		fileListView.setItems(this.files);
 	}
 
 	public static void hideHTMLEditorToolbars(final HTMLEditor editor)
@@ -170,8 +174,9 @@ public class Controller {
 
     	statTable.setItems(data);
 
-    	final ObservableList<String> items = FXCollections.observableArrayList("file:" + file.getName());
-    	fileListView.setItems(items);
+    	//final ObservableList<String> items = FXCollections.observableArrayList("file:" + file.getName());
+    	files.add("file: " + file.getName());
+
 
 
     	bcNum.getData().add(analyzer.createNumSeries());
