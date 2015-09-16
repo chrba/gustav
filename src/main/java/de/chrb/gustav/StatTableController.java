@@ -28,7 +28,8 @@ public class StatTableController {
     @FXML private TableView<Statistics> statTable;
 
     /**
-     * Initialize all fields to support property binding
+     * Initialize all fields by binding them to the corresponding
+     * statistics property value.
      */
     @FXML
     public void initialize() {
