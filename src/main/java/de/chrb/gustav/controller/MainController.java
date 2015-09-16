@@ -1,4 +1,4 @@
-package de.chrb.gustav;
+package de.chrb.gustav.controller;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -37,8 +37,8 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class Controller {
-	private static Logger LOG = LoggerFactory.getLogger(Controller.class);
+public class MainController {
+	private static Logger LOG = LoggerFactory.getLogger(MainController.class);
 
 	@FXML
 	private Parent root;

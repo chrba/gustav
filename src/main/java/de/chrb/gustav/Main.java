@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import de.chrb.gustav.controller.MainController;
 import de.chrb.gustav.model.parser.GCParser;
 import de.chrb.gustav.model.parser.ParserRegistry;
 import de.chrb.gustav.model.parser.cms.ConcurrentMarkParser;
@@ -44,7 +45,7 @@ public class Main extends Application {
 
 
 		 final AnchorPane root = (AnchorPane) loader.load();
-		 final Controller controller = (Controller)loader.getController();
+		 final MainController controller = (MainController)loader.getController();
 		 controller.setGCParserRegistry(getParserRegistry());
 		return root;
 	}

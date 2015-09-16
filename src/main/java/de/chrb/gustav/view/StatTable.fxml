@@ -3,7 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
- <TableView fx:controller="de.chrb.gustav.StatTableController" fx:id="statTable"
+ <TableView fx:controller="de.chrb.gustav.controller.StatTableController" fx:id="statTable"
  		layoutX="34.0" layoutY="66.0" prefHeight="371.0" prefWidth="813.0"
  		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 

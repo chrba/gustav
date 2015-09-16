@@ -1,4 +1,4 @@
-package de.chrb.gustav;
+package de.chrb.gustav.controller;
 import java.util.List;
 
 import de.chrb.gustav.model.statistics.Statistics;
