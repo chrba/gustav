@@ -46,17 +46,11 @@ public class Controller {
     @FXML
     private BarChart<String, Double> bcAvg;
 
-    @FXML
-    private TableColumn<Statistics, Number> tcNum;
 
-    @FXML
-    private TableColumn<Statistics, Number> tbSigma;
 
     @FXML
     private ScatterChart<Double, Double> lcGCTimeline;
 
-    @FXML
-    private TableColumn<Statistics, String> gcType;
 
     @FXML
     private BarChart<String, Long> bcMin;
@@ -67,12 +61,6 @@ public class Controller {
     @FXML
     private BarChart<String, Double> bcTotalGC;
 
-    @FXML
-    private TableColumn<Statistics, Number> tcTocalGc;
-
-
-    @FXML
-    private TableColumn<Statistics, Number> tcNumPerc;
 
     @FXML
     private BarChart<String, Double> bcOverhead;
@@ -80,23 +68,15 @@ public class Controller {
     @FXML
     private BarChart<String, Integer> bcNum;
 
-    @FXML
-    private TableView<Statistics> statTable;
+
 
     @FXML
     private Button btnRemove;
 
-    @FXML
-    private TableColumn<Statistics, Number> tcTocalGcPerc;
 
     @FXML
     private ListView<String> fileListView;
 
-    @FXML
-    private TableColumn<Statistics, Number> tcMax;
-
-    @FXML
-    private TableColumn<Statistics, Number> tcOverhead;
 
     @FXML
     private PieChart pcGCStats;
@@ -107,11 +87,7 @@ public class Controller {
     @FXML
     private BarChart<String, Double> bcNumPerc;
 
-    @FXML
-    private TableColumn<Statistics, Number> tcAvg;
 
-    @FXML
-    private TableColumn<Statistics, Number> tcMin;
 
     @FXML
     private Button btnAdd;
@@ -121,6 +97,9 @@ public class Controller {
 
     @FXML
     private BarChart<String, Double> bcSigma;
+
+    @FXML
+    private StatTableController statTableViewController;
 
 	private ParserRegistry parserRegistry;
 
@@ -157,22 +136,23 @@ public class Controller {
     	final List<GCEvent> events = parserRegistry.parse(file);
     	LOG.debug("Found {} GCEvents", events.size());
 
-    	gcType.setCellValueFactory(s -> s.getValue().name);
-    	tcNum.setCellValueFactory(s -> s.getValue().num);
-    	tcNumPerc.setCellValueFactory(s -> s.getValue().numPerc);
-    	tcTocalGc.setCellValueFactory(s -> s.getValue().secs);
-    	tcTocalGcPerc.setCellValueFactory(s -> s.getValue().secsPerc);
-    	tcOverhead.setCellValueFactory(s -> s.getValue().overhead);
-    	tcAvg.setCellValueFactory(s -> s.getValue().avg);
-    	tbSigma.setCellValueFactory(s -> s.getValue().sigma);
-    	tcMin.setCellValueFactory(s -> s.getValue().min);
-    	tcMax.setCellValueFactory(s -> s.getValue().max);
+//    	gcType.setCellValueFactory(s -> s.getValue().name);
+//    	tcNum.setCellValueFactory(s -> s.getValue().num);
+//    	tcNumPerc.setCellValueFactory(s -> s.getValue().numPerc);
+//    	tcTocalGc.setCellValueFactory(s -> s.getValue().secs);
+//    	tcTocalGcPerc.setCellValueFactory(s -> s.getValue().secsPerc);
+//    	tcOverhead.setCellValueFactory(s -> s.getValue().overhead);
+//    	tcAvg.setCellValueFactory(s -> s.getValue().avg);
+//    	tbSigma.setCellValueFactory(s -> s.getValue().sigma);
+//    	tcMin.setCellValueFactory(s -> s.getValue().min);
+//    	tcMax.setCellValueFactory(s -> s.getValue().max);
+//    	statTable.setItems(data);
 
     	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(events);
-    	final ObservableList<Statistics> data =
-    	        FXCollections.observableArrayList(analyzer.statisticsList());
+    	this.statTableViewController.addData(analyzer.statisticsList());
+    	//final ObservableList<Statistics> data =
+    	//        FXCollections.observableArrayList(analyzer.statisticsList());
 
-    	statTable.setItems(data);
 
     	//final ObservableList<String> items = FXCollections.observableArrayList("file:" + file.getName());
     	files.add("file: " + file.getName());
