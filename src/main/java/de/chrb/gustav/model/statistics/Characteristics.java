@@ -30,7 +30,7 @@ public class Characteristics {
 		"<div style='line-height: 25px;color: #444; font-family: Gill Sans, Verdana;'><h3>Tuning Data</h3>" +
 		"<div style='font-size:11pt'><ul>" +
 		"<li>Promotion Rate: 234 Mb/s</li>" +
-		"<li>Allcocation Rate: 23 Mb/s</li>" +
+		"<li>Allcocation Rate:"+ this.allocationRate()+" Mb/s</li>" +
 		"<li>Live Data: 234 Mb/s</li>" +
 		"<li>Time between minor collections: 100 s</li>" +
 		"<li>Time between major collections: 32 s</li>" +
