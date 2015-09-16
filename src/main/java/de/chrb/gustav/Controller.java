@@ -136,22 +136,8 @@ public class Controller {
     	final List<GCEvent> events = parserRegistry.parse(file);
     	LOG.debug("Found {} GCEvents", events.size());
 
-//    	gcType.setCellValueFactory(s -> s.getValue().name);
-//    	tcNum.setCellValueFactory(s -> s.getValue().num);
-//    	tcNumPerc.setCellValueFactory(s -> s.getValue().numPerc);
-//    	tcTocalGc.setCellValueFactory(s -> s.getValue().secs);
-//    	tcTocalGcPerc.setCellValueFactory(s -> s.getValue().secsPerc);
-//    	tcOverhead.setCellValueFactory(s -> s.getValue().overhead);
-//    	tcAvg.setCellValueFactory(s -> s.getValue().avg);
-//    	tbSigma.setCellValueFactory(s -> s.getValue().sigma);
-//    	tcMin.setCellValueFactory(s -> s.getValue().min);
-//    	tcMax.setCellValueFactory(s -> s.getValue().max);
-//    	statTable.setItems(data);
-
     	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(events);
     	this.statTableViewController.addData(analyzer.statisticsList());
-    	//final ObservableList<Statistics> data =
-    	//        FXCollections.observableArrayList(analyzer.statisticsList());
 
 
     	//final ObservableList<String> items = FXCollections.observableArrayList("file:" + file.getName());
