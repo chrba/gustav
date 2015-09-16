@@ -8,47 +8,48 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Controller for statistics table.
+ *
+ * @author Christian Bannes
+ */
 public class StatTableController {
 
-    @FXML
-    private TableColumn<Statistics, Number> tcNum;
-    @FXML
-    private TableColumn<Statistics, Number> tcTocalGc;
-    @FXML
-    private TableColumn<Statistics, Number> tcNumPerc;
-    @FXML
-    private TableColumn<Statistics, Number> tcTocalGcPerc;
-    @FXML
-    private TableColumn<Statistics, Number> tcAvg;
-    @FXML
-    private TableColumn<Statistics, Number> tcMin;
-    @FXML
-    private TableColumn<Statistics, Number> tcMax;
-    @FXML
-    private TableColumn<Statistics, Number> tcOverhead;
-    @FXML
-    private TableColumn<Statistics, Number> tbSigma;
-    @FXML
-    private TableColumn<Statistics, String> gcType;
-    @FXML
-    private TableView<Statistics> statTable;
+    @FXML private TableColumn<Statistics, Number> num;
+    @FXML private TableColumn<Statistics, Number> tocalGc;
+    @FXML private TableColumn<Statistics, Number> numPerc;
+    @FXML private TableColumn<Statistics, Number> tocalGcPerc;
+    @FXML private TableColumn<Statistics, Number> avg;
+    @FXML private TableColumn<Statistics, Number> min;
+    @FXML private TableColumn<Statistics, Number> max;
+    @FXML private TableColumn<Statistics, Number> overhead;
+    @FXML private TableColumn<Statistics, Number> sigma;
+    @FXML private TableColumn<Statistics, String> type;
+    @FXML private TableView<Statistics> statTable;
 
-
-
+    /**
+     * Initialize all fields to support property binding
+     */
     @FXML
     public void initialize() {
-    	this.gcType.setCellValueFactory(s -> s.getValue().name);
-    	this.tcNum.setCellValueFactory(s -> s.getValue().num);
-    	this.tcNumPerc.setCellValueFactory(s -> s.getValue().numPerc);
-    	this.tcTocalGc.setCellValueFactory(s -> s.getValue().secs);
-    	this.tcTocalGcPerc.setCellValueFactory(s -> s.getValue().secsPerc);
-    	this.tcOverhead.setCellValueFactory(s -> s.getValue().overhead);
-    	this.tcAvg.setCellValueFactory(s -> s.getValue().avg);
-    	this.tbSigma.setCellValueFactory(s -> s.getValue().sigma);
-    	this.tcMin.setCellValueFactory(s -> s.getValue().min);
-    	this.tcMax.setCellValueFactory(s -> s.getValue().max);
+    	this.type.setCellValueFactory(s -> s.getValue().name);
+    	this.num.setCellValueFactory(s -> s.getValue().num);
+    	this.numPerc.setCellValueFactory(s -> s.getValue().numPerc);
+    	this.tocalGc.setCellValueFactory(s -> s.getValue().secs);
+    	this.tocalGcPerc.setCellValueFactory(s -> s.getValue().secsPerc);
+    	this.overhead.setCellValueFactory(s -> s.getValue().overhead);
+    	this.avg.setCellValueFactory(s -> s.getValue().avg);
+    	this.sigma.setCellValueFactory(s -> s.getValue().sigma);
+    	this.min.setCellValueFactory(s -> s.getValue().min);
+    	this.max.setCellValueFactory(s -> s.getValue().max);
     }
 
+    /**
+     * Adds the data to the statistics table. Each element in the list corresponds to
+     * one table row.
+     *
+     * @param data the statistics data
+     */
     public void addData(final List<Statistics> data) {
     	final ObservableList<Statistics> items = FXCollections.observableArrayList(data);
     	this.statTable.setItems(items);
