@@ -1,0 +1,143 @@
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
+
+<TabPane fx:controller="de.chrb.gustav.controller.BarChartsController"
+	    prefHeight="433.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE"
+   		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+     <Tab text="Num">
+       <content>
+         <AnchorPane>
+                <children>
+                   <BarChart fx:id="num" prefHeight="400.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+       </content>
+     </Tab>
+     <Tab text="Num%">
+       <content>
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="numPerc" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+       </content>
+     </Tab>
+       <Tab text="TotalGC%">
+          <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="totalGC" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+          </content>
+       </Tab>
+       <Tab text="Overhead">
+          <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="overhead" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+          </content>
+       </Tab>
+       <Tab text="Avg">
+          <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="avg" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+          </content>
+       </Tab>
+       <Tab text="Sigma">
+          <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="sigma" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+          </content>
+       </Tab>
+       <Tab text="Min">
+          <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="min" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+          </content>
+       </Tab>
+       <Tab text="Max">
+          <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                   <BarChart fx:id="max" prefHeight="187.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <xAxis>
+                       <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                       <NumberAxis side="LEFT" />
+                     </yAxis>
+                   </BarChart>
+                </children>
+             </AnchorPane>
+          </content>
+       </Tab>
+   </tabs>
+ </TabPane>
