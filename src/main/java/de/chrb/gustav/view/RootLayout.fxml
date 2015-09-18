@@ -51,56 +51,7 @@
                                                       <content>
                                                         <AnchorPane>
                                                                <children>
-                                                                  <Accordion prefHeight="256.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <panes>
-                                                                      <TitledPane text="GC Infos">
-                                                                        <content>
-                                                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="185.0" prefWidth="200.0">
-                                                                                 <children>
-                                                                                    <HBox prefHeight="247.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                       <children>
-                                                                                             <HTMLEditor fx:id="tfImportantDataTextArea" prefWidth="450.0"   />
-                                                                                          <PieChart fx:id="pcGCStats" />
-                                                                                       </children>
-                                                                                    </HBox>
-                                                                                 </children>
-                                                                              </AnchorPane>
-                                                                        </content>
-                                                                      </TitledPane>
-                                                                      <TitledPane expanded="false" text="GC Pause Distribution">
-                                                                        <content>
-                                                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                                 <children>
-                                                                                    <ScatterChart fx:id="lcGCPauseDistribution" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                      <xAxis>
-                                                                                        <NumberAxis side="BOTTOM" />
-                                                                                      </xAxis>
-                                                                                      <yAxis>
-                                                                                        <NumberAxis side="LEFT" />
-                                                                                      </yAxis>
-                                                                                    </ScatterChart>
-                                                                                 </children>
-                                                                              </AnchorPane>
-                                                                        </content>
-                                                                      </TitledPane>
-                                                                      <TitledPane expanded="false" text="GC Timeline">
-                                                                        <content>
-                                                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                                 <children>
-                                                                                    <ScatterChart fx:id="lcGCTimeline" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                      <xAxis>
-                                                                                        <NumberAxis side="BOTTOM" />
-                                                                                      </xAxis>
-                                                                                      <yAxis>
-                                                                                        <NumberAxis side="LEFT" />
-                                                                                      </yAxis>
-                                                                                    </ScatterChart>
-                                                                                 </children>
-                                                                              </AnchorPane>
-                                                                        </content>
-                                                                      </TitledPane>
-                                                                    </panes>
-                                                                  </Accordion>
+ 																	<fx:include fx:id="accordionView" source="Accordion.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children>
                                                             </AnchorPane>
                                                       </content>

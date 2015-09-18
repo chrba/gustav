@@ -31,15 +31,15 @@ public class MainController {
 	private static Logger LOG = LoggerFactory.getLogger(MainController.class);
 
 	@FXML private Parent root;
-    @FXML private ScatterChart<Double, Double> lcGCTimeline;
-    @FXML private ScatterChart<Long, Long> lcGCPauseDistribution;
+
     @FXML private Button btnRemove;
     @FXML private ListView<String> fileListView;
-    @FXML private PieChart pcGCStats;
+
     @FXML private Button btnAdd;
-    @FXML private HTMLEditor tfImportantDataTextArea;
+
     @FXML private StatTableController statTableViewController;
-    @FXML BarChartsController barChartsViewController;
+    @FXML private BarChartsController barChartsViewController;
+    @FXML private AccordionController accordionViewController;
 
 	private ParserRegistry parserRegistry;
 
@@ -48,22 +48,7 @@ public class MainController {
 
 	@FXML
 	public void initialize() {
-		hideHTMLEditorToolbars(tfImportantDataTextArea);
-
 		fileListView.setItems(this.files);
-	}
-
-	public static void hideHTMLEditorToolbars(final HTMLEditor editor)
-	{
-	    editor.setVisible(false);
-	    Platform.runLater(() -> {
-		    Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
-		    Arrays.stream(nodes).forEach(n -> {
-	            n.setVisible(false);
-	            n.setManaged(false);
-		    });
-	        editor.setVisible(true);
-	    });
 	}
 
     @FXML
@@ -83,27 +68,11 @@ public class MainController {
 
     	barChartsViewController.addSeries(analyzer);
 
-    	//
-    	//lcGCTimeline
-    	XYChart.Series<Double, Integer> series = new XYChart.Series<Double, Integer>();
-    	series.getData().add(new XYChart.Data<>(1.0, 10));
-    	series.getData().add(new XYChart.Data<>(4.3, 11));
-    	series.getData().add(new XYChart.Data<>(5.1, 2));
-    	series.getData().add(new XYChart.Data<>(7.876, 7));
-    	series.getData().add(new XYChart.Data<>(10.3442, 20));
-    	series.getData().add(new XYChart.Data<>(12.1, 4));
-    	series.getData().add(new XYChart.Data<>(20.4, 40));
 
-    	lcGCTimeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
-
-    	lcGCPauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
-    	//lcGCTimeline.setCreateSymbols(false);
+    	accordionViewController.addData(analyzer, events);
 
     	//pcGCStats.
-    	pcGCStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
 
-    	final Characteristics c = new Characteristics(events);
-    	tfImportantDataTextArea.setHtmlText(c.text());
 
     }
 
