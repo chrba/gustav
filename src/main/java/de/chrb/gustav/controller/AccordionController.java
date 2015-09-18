@@ -14,18 +14,35 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.web.HTMLEditor;
 
+/**
+ * Accordion controller with three elemens:
+ *   - important data textarea
+ *   - timeline chart
+ *   - pause distribution chart
+ *
+ * @author Christian Bannes
+ */
 public class AccordionController {
-    @FXML private HTMLEditor tfImportantDataTextArea;
-    @FXML private ScatterChart<Double, Double> lcGCTimeline;
-    @FXML private ScatterChart<Long, Long> lcGCPauseDistribution;
-    @FXML private PieChart pcGCStats;
+    @FXML private HTMLEditor importantDataTextArea;
+    @FXML private ScatterChart<Double, Double> timeline;
+    @FXML private ScatterChart<Long, Long> pauseDistribution;
+    @FXML private PieChart pieStats;
 
+    /**
+     * Currently there is no official way of hiding the controlls of
+     * the html, so we go the unofficial way
+     */
 	@FXML
 	public void initialize() {
-		hideHTMLEditorToolbars(tfImportantDataTextArea);
+		hideHTMLEditorToolbars(importantDataTextArea);
 	}
 
-	public static void hideHTMLEditorToolbars(final HTMLEditor editor) {
+	/**
+	 * Hides the controls of the given html editor
+	 *
+	 * @param editor the editor
+	 */
+	private static void hideHTMLEditorToolbars(final HTMLEditor editor) {
 	    editor.setVisible(false);
 	    Platform.runLater(() -> {
 		    Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
@@ -37,12 +54,18 @@ public class AccordionController {
 	    });
 	}
 
+	/**
+	 * Adds data to the important textarea filed, the gc timeline and the gc pause distribution
+	 *
+	 * @param analyzer contains statistics analyze results
+	 * @param events the gc events
+	 */
 	public void addData(final StatisticsAnalyzer analyzer, final List<GCEvent> events) {
-    	lcGCTimeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
-    	lcGCPauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
+    	this.timeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
+    	this.pauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
 
     	final Characteristics c = new Characteristics(events);
-    	tfImportantDataTextArea.setHtmlText(c.text());
-    	pcGCStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
+    	this.importantDataTextArea.setHtmlText(c.text());
+    	this.pieStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
 	}
 }

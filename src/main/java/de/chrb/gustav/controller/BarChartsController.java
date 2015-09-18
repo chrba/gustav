@@ -21,6 +21,11 @@ public class BarChartsController {
     @FXML private BarChart<String, Double> sigma;
 
 
+    /**
+     * Adds the result of one gc file analyzis to the bar charts
+     *
+     * @param analyzer the result of one gc file analyzis
+     */
 	public void addSeries(StatisticsAnalyzer analyzer) {
     	this.num.getData().add(analyzer.createNumSeries());
     	this.overhead.getData().add(analyzer.createOverheadSeries());
