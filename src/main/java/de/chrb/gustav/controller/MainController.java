@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.chrb.gustav.model.file.GCFile;
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.parser.ParserRegistry;
 import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
@@ -25,7 +26,7 @@ public class MainController {
 	@FXML private Parent root;
 
     @FXML private Button btnRemove;
-    @FXML private ListView<String> fileListView;
+    @FXML private ListView<GCFile> fileListView;
     @FXML private Button btnAdd;
 
     @FXML private StatTableController statTableViewController;
@@ -33,11 +34,11 @@ public class MainController {
     @FXML private AccordionController accordionViewController;
 
 	private ParserRegistry parserRegistry;
-	private final ObservableList<String> files = FXCollections.observableArrayList();
+	private final ObservableList<GCFile> files = FXCollections.observableArrayList();
 
 	@FXML
 	public void initialize() {
-		fileListView.setItems(this.files);
+		this.fileListView.setItems(this.files);
 	}
 
     @FXML
@@ -53,16 +54,17 @@ public class MainController {
     	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(events);
     	this.statTableViewController.addData(analyzer.statisticsList());
 
-    	files.add("file: " + file.getName());
+    	this.files.add(new GCFile(file));
 
-    	barChartsViewController.addSeries(analyzer);
-    	accordionViewController.addData(analyzer, events);
+    	this.barChartsViewController.addSeries(analyzer);
+    	this.accordionViewController.addData(analyzer, events);
 
     }
 
     @FXML
     void removeFile(ActionEvent event) {
-
+    	final GCFile gcFile = this.fileListView.getSelectionModel().getSelectedItem();
+    	this.files.remove(gcFile);
     }
 
 	public void setGCParserRegistry(ParserRegistry parserRegistry) {
