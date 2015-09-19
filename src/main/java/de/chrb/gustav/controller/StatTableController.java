@@ -2,7 +2,10 @@ package de.chrb.gustav.controller;
 import java.util.List;
 
 import de.chrb.gustav.model.statistics.Statistics;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -25,6 +28,7 @@ public class StatTableController {
     @FXML private TableColumn<Statistics, Number> overhead;
     @FXML private TableColumn<Statistics, Number> sigma;
     @FXML private TableColumn<Statistics, String> type;
+    @FXML private TableColumn<Statistics, String> fileName;
     @FXML private TableView<Statistics> statTable;
 
     /**
@@ -33,6 +37,7 @@ public class StatTableController {
      */
     @FXML
     public void initialize() {
+    	this.fileName.setCellValueFactory(s -> s.getValue().fileName);
     	this.type.setCellValueFactory(s -> s.getValue().name);
     	this.num.setCellValueFactory(s -> s.getValue().num);
     	this.numPerc.setCellValueFactory(s -> s.getValue().numPerc);

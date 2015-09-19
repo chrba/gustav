@@ -21,6 +21,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
  * @author Christian Bannes
  */
 public class Statistics {
+	public final ReadOnlyStringProperty fileName;
 	public final ReadOnlyStringProperty name;
 	public final ReadOnlyIntegerProperty num;
 	public final ReadOnlyDoubleProperty numPerc;
@@ -34,7 +35,8 @@ public class Statistics {
 	public final ReadOnlyLongProperty median;
 
 
-	public Statistics(final String name, final List<GCEvent> events, final List<GCEvent> allEvents) {
+	public Statistics(final String fileName, final String name, final List<GCEvent> events, final List<GCEvent> allEvents) {
+		this.fileName = new ReadOnlyStringWrapper(fileName).getReadOnlyProperty();
 		this.name = new ReadOnlyStringWrapper(name).getReadOnlyProperty();
 		this.num = new ReadOnlyIntegerWrapper(events.size()).getReadOnlyProperty();
 		this.numPerc = new ReadOnlyDoubleWrapper(numPerc(events, allEvents)).getReadOnlyProperty();

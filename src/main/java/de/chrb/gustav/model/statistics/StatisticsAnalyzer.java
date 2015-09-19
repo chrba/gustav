@@ -1,16 +1,15 @@
 package de.chrb.gustav.model.statistics;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import de.chrb.gustav.model.file.GCFile;
 import de.chrb.gustav.model.gc.GCEvent;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
-import javafx.util.Callback;
 
 public class StatisticsAnalyzer {
 	//private final Map<String, Statistics> statisticsByName;
@@ -18,7 +17,7 @@ public class StatisticsAnalyzer {
 	private final Map<String, List<GCEvent>> eventsByName;
 	private final List<GCEvent> sortedEvents;
 
-	public StatisticsAnalyzer(final List<GCEvent> events) {
+	public StatisticsAnalyzer(final GCFile gcFile, final List<GCEvent> events) {
 		this.sortedEvents = new ArrayList<>(events);
 		this.sortedEvents.sort((e1, e2) -> Double.compare(e1.getTimeStats().getElappsedTime(), e2.getTimeStats().getElappsedTime()));
 
@@ -26,7 +25,7 @@ public class StatisticsAnalyzer {
 				.collect(Collectors.groupingBy(e -> e.getName()));
 
 		this.statistics = eventsByName.entrySet().stream()
-			.map( e -> new Statistics(e.getKey(), e.getValue(), events))
+			.map( e -> new Statistics(gcFile.getName(), e.getKey(), e.getValue(), events))
 			.collect(Collectors.toList());
 	}
 	public List<Statistics> statisticsList() {

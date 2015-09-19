@@ -9,15 +9,16 @@
 
    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
     <columns>
-        <TableColumn fx:id="type" prefWidth="130.0" text="" />
+    	<TableColumn fx:id="fileName" prefWidth="130.0" text="File" />
+        <TableColumn fx:id="type" prefWidth="100.0" text="Name" />
         <TableColumn fx:id="num" prefWidth="75.0" text="Num" />
-        <TableColumn fx:id="numPerc" prefWidth="100.0" text="Num%" />
-        <TableColumn fx:id="tocalGc" prefWidth="88.0" text="TotalGC[secs]" />
-        <TableColumn fx:id="tocalGcPerc" prefWidth="88.0" text="TotalGC%" />
+        <TableColumn fx:id="numPerc" prefWidth="100.0" text="Num (%)" />
+        <TableColumn fx:id="tocalGc" prefWidth="88.0" text="Total GC (ms)" />
+        <TableColumn fx:id="tocalGcPerc" prefWidth="88.0" text="Total GC (%)" />
         <TableColumn fx:id="overhead" prefWidth="120.0" text="Overhead" />
-        <TableColumn fx:id="avg" prefWidth="101.0" text="Avg[secs]" />
-        <TableColumn fx:id="sigma" prefWidth="110.0" text="Sigma[secs]" />
-        <TableColumn fx:id="min" prefWidth="103.0" text="Min[secs]" />
-        <TableColumn fx:id="max" prefWidth="141.0" text="Max[secs]" />
+        <TableColumn fx:id="avg" prefWidth="101.0" text="Avg (ms)" />
+        <TableColumn fx:id="sigma" prefWidth="110.0" text="Sigma (ms)" />
+        <TableColumn fx:id="min" prefWidth="103.0" text="Min (ms)" />
+        <TableColumn fx:id="max" prefWidth="141.0" text="Max (ms)" />
     </columns>
   </TableView>

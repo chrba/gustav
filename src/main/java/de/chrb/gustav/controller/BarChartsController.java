@@ -27,6 +27,7 @@ public class BarChartsController {
      * @param analyzer the result of one gc file analyzis
      */
 	public void addSeries(StatisticsAnalyzer analyzer) {
+
     	this.num.getData().add(analyzer.createNumSeries());
     	this.overhead.getData().add(analyzer.createOverheadSeries());
     	this.avg.getData().add(analyzer.createAvgSeries());

@@ -38,5 +38,13 @@ public class GCFile {
 		return Objects.equals(this.file, that.file);
 	}
 
+	public String getName() {
+		return this.toString();
+	}
+
+	public File toFile() {
+		return this.file;
+	}
+
 
 }

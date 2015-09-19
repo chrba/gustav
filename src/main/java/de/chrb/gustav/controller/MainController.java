@@ -46,15 +46,15 @@ public class MainController {
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
     	final Stage stage = (Stage)root.getScene().getWindow();
-    	final File file = fileChooser.showOpenDialog(stage);
+    	final GCFile gcFile = new GCFile(fileChooser.showOpenDialog(stage));
 
-    	final List<GCEvent> events = parserRegistry.parse(file);
+    	final List<GCEvent> events = parserRegistry.parse(gcFile.toFile());
     	LOG.debug("Found {} GCEvents", events.size());
 
-    	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(events);
+    	final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(gcFile, events);
     	this.statTableViewController.addData(analyzer.statisticsList());
 
-    	this.files.add(new GCFile(file));
+    	this.files.add(gcFile);
 
     	this.barChartsViewController.addSeries(analyzer);
     	this.accordionViewController.addData(analyzer, events);
