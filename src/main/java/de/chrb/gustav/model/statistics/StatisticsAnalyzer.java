@@ -7,13 +7,15 @@ import java.util.stream.Collectors;
 
 import de.chrb.gustav.model.file.GCFile;
 import de.chrb.gustav.model.gc.GCEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
 public class StatisticsAnalyzer {
 	//private final Map<String, Statistics> statisticsByName;
-	private final List<Statistics> statistics;
+	private final ObservableList<Statistics> statistics;
 	private final Map<String, List<GCEvent>> eventsByName;
 	private final List<GCEvent> sortedEvents;
 
@@ -24,16 +26,30 @@ public class StatisticsAnalyzer {
 		this.eventsByName = events.stream()
 				.collect(Collectors.groupingBy(e -> e.getName()));
 
-		this.statistics = eventsByName.entrySet().stream()
+		this.statistics = FXCollections.observableArrayList(eventsByName.entrySet().stream()
 			.map( e -> new Statistics(gcFile.getName(), e.getKey(), e.getValue(), events))
-			.collect(Collectors.toList());
+			.collect(Collectors.toList()));
 	}
 	public List<Statistics> statisticsList() {
 		return	this.statistics;
 	}
 
+	private void test() {
+
+		ObservableList<Series<String, Integer>> ob1 = null;
+		ObservableList<Statistics> ob2 = null;
+
+		ob2.removeIf(p -> p.fileName.equals("x"));
+		ob1.removeIf(s -> s.getName().equals("name"));
+	}
+
+	private void test2(ObservableList<Series<?, ?>> x) {
+		x.removeIf(s -> s.getName().equals("name"));
+	}
+
 	public XYChart.Series<String, Integer> createNumSeries() {
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
+		series.setName("test");
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.num.get())));
 		return series;
 	}

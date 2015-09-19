@@ -1,11 +1,13 @@
 package de.chrb.gustav.model.statistics;
 
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import de.chrb.gustav.model.gc.GCEvent;
 
 
 
@@ -54,8 +56,7 @@ public class Stats {
 	 * @param values the values
 	 * @return the average
 	 */
-	public static double average(final Collection<Long> values)
-	{
+	public static double average(final Collection<Long> values) {
 		return values.stream()
 			.mapToLong(Long::longValue)
 			.average()
@@ -69,9 +70,7 @@ public class Stats {
 	 * @param values the values
 	 * @return the median
 	 */
-	public static long median(final Collection<Long> values)
-	{
-
+	public static long median(final Collection<Long> values) {
 		if(values.isEmpty()) return 0;
 
 		final List<Long> list = new ArrayList<Long>(values);
@@ -79,5 +78,38 @@ public class Stats {
 
 		final int mid = values.size() / 2;
 		return list.get(mid);
+	}
+
+	public static double numPerc(final List<GCEvent> events, final List<GCEvent> allEvents) {
+		return allEvents.isEmpty()? 0 : events.size() / (double)allEvents.size() * 100;
+	}
+
+
+	public static double gcSecsPercent(final double totalSecs, final double totalSecsAllEvents) {
+		return totalSecsAllEvents == 0? 0 : totalSecs / totalSecsAllEvents * 100;
+	}
+
+
+	public static double sumSecs(final List<GCEvent> vals) {
+		return vals.stream()
+			.map(v -> v.getTimeStats().getDuration())
+			.mapToDouble(Double::doubleValue)
+			.sum();
+	}
+
+	public static double overhead(final double totalSecs, final List<GCEvent> allEvents) {
+		final double totalElapsedTimeSinceMeasurement = Stats.calcTotalTime(allEvents);
+
+		return totalElapsedTimeSinceMeasurement == 0? 0
+				: totalSecs / totalElapsedTimeSinceMeasurement * 100;
+	}
+
+	public static double calcTotalTime(List<GCEvent> events) {
+
+		final List<Double> times = events.stream()
+				.map(event -> event.getTimeStats().getElappsedTime())
+				.collect(Collectors.toList());
+
+		return  Collections.max(times)-Collections.min(times);
 	}
 }
