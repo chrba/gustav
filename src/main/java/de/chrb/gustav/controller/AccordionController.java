@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.TitledPane;
 import javafx.scene.web.HTMLEditor;
 
 /**
@@ -27,6 +29,7 @@ public class AccordionController {
     @FXML private ScatterChart<Double, Double> timeline;
     @FXML private ScatterChart<Long, Long> pauseDistribution;
     @FXML private PieChart pieStats;
+    @FXML private Accordion accordionView;
 
     /**
      * Currently there is no official way of hiding the controlls of
@@ -67,5 +70,8 @@ public class AccordionController {
     	final Characteristics c = new Characteristics(events);
     	this.importantDataTextArea.setHtmlText(c.text());
     	this.pieStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
+
+    	final TitledPane p = accordionView.getPanes().get(0);
+    	accordionView.setExpandedPane(p);
 	}
 }
