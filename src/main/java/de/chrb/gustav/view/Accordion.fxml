@@ -9,55 +9,61 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.*?>
 
-<Accordion fx:id="accordionView" prefHeight="256.0" prefWidth="962.0"
-		fx:controller="de.chrb.gustav.controller.AccordionController"
-		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <panes>
-    <TitledPane text="GC Infos">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="185.0" prefWidth="200.0">
-               <children>
-                  <HBox prefHeight="247.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                           <HTMLEditor fx:id="importantDataTextArea" prefWidth="450.0"   />
-                        <PieChart fx:id="pieStats" />
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-      </content>
-    </TitledPane>
-    <TitledPane expanded="false" text="GC Pause Distribution">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ScatterChart fx:id="pauseDistribution" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </ScatterChart>
-               </children>
-            </AnchorPane>
-      </content>
-    </TitledPane>
-    <TitledPane expanded="false" text="GC Timeline">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ScatterChart fx:id="timeline" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </ScatterChart>
-               </children>
-            </AnchorPane>
-      </content>
-    </TitledPane>
-  </panes>
-</Accordion>
+ <fx:root type="javafx.scene.control.Tab" xmlns:fx="http://javafx.com/fxml">
+	<content>
+		<AnchorPane>
+			<children>
+				<Accordion fx:id="accordion" prefHeight="256.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				  <panes>
+				    <TitledPane text="GC Infos">
+				      <content>
+				        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="185.0" prefWidth="200.0">
+				               <children>
+				                  <HBox prefHeight="247.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				                     <children>
+				                           <HTMLEditor fx:id="importantDataTextArea" prefWidth="450.0"   />
+				                        <PieChart fx:id="pieStats" />
+				                     </children>
+				                  </HBox>
+				               </children>
+				            </AnchorPane>
+				      </content>
+				    </TitledPane>
+				    <TitledPane expanded="false" text="GC Pause Distribution">
+				      <content>
+				        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+				               <children>
+				                  <ScatterChart fx:id="pauseDistribution" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				                    <xAxis>
+				                      <NumberAxis side="BOTTOM" />
+				                    </xAxis>
+				                    <yAxis>
+				                      <NumberAxis side="LEFT" />
+				                    </yAxis>
+				                  </ScatterChart>
+				               </children>
+				            </AnchorPane>
+				      </content>
+				    </TitledPane>
+				    <TitledPane expanded="false" text="GC Timeline">
+				      <content>
+				        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+				               <children>
+				                  <ScatterChart fx:id="timeline" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				                    <xAxis>
+				                      <NumberAxis side="BOTTOM" />
+				                    </xAxis>
+				                    <yAxis>
+				                      <NumberAxis side="LEFT" />
+				                    </yAxis>
+				                  </ScatterChart>
+				               </children>
+				            </AnchorPane>
+				      </content>
+				    </TitledPane>
+				  </panes>
+				</Accordion>
+			</children>
+		</AnchorPane>
+	</content>
+ </fx:root>

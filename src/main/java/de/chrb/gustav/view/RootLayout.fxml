@@ -45,18 +45,7 @@
                                        <children>
                                         <AnchorPane prefHeight="529.0" prefWidth="1055.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TabPane prefHeight="356.0" prefWidth="962.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <tabs>
-                                                    <Tab text="gc.file.1">
-                                                      <content>
-                                                        <AnchorPane>
-                                                               <children>
- 																	<fx:include fx:id="accordionView" source="Accordion.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children>
-                                                            </AnchorPane>
-                                                      </content>
-                                                    </Tab>
-                                                  </tabs>
+                                                <TabPane fx:id="accordionTabPane" prefHeight="356.0" prefWidth="962.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 </TabPane>
                                              </children>
                                           </AnchorPane>

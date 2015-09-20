@@ -1,5 +1,6 @@
 package de.chrb.gustav.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,27 +10,33 @@ import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
 import javafx.scene.web.HTMLEditor;
 
-/**
- * Accordion controller with three elemens:
- *   - important data textarea
- *   - timeline chart
- *   - pause distribution chart
- *
- * @author Christian Bannes
- */
-public class AccordionController {
+public class CustomTab extends Tab {
     @FXML private HTMLEditor importantDataTextArea;
     @FXML private ScatterChart<Double, Double> timeline;
     @FXML private ScatterChart<Long, Long> pauseDistribution;
     @FXML private PieChart pieStats;
-    @FXML private Accordion accordionView;
+    @FXML private Accordion accordion;
+
+    public CustomTab() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Accordion.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
     /**
      * Currently there is no official way of hiding the controlls of
@@ -71,7 +78,7 @@ public class AccordionController {
     	this.importantDataTextArea.setHtmlText(c.text());
     	this.pieStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
 
-    	final TitledPane p = accordionView.getPanes().get(0);
-    	accordionView.setExpandedPane(p);
+    	final TitledPane p = this.accordion.getPanes().get(0);
+    	this.accordion.setExpandedPane(p);
 	}
 }

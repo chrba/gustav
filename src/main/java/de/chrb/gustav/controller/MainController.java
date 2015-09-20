@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,8 +33,9 @@ public class MainController {
 
     @FXML private StatTableController statTableViewController;
     @FXML private BarChartsController barChartsViewController;
-    @FXML private AccordionController accordionViewController;
+   // @FXML private AccordionController accordionViewController;
 
+    @FXML private TabPane accordionTabPane;
 	private ParserRegistry parserRegistry;
 	private final ObservableList<GCFile> files = FXCollections.observableArrayList();
 
@@ -57,8 +60,12 @@ public class MainController {
     	this.files.add(gcFile);
 
     	this.barChartsViewController.addSeries(analyzer);
-    	this.accordionViewController.addData(analyzer, events);
+    	//this.accordionViewController.addData(analyzer, events);
 
+    	final CustomTab tab = new CustomTab();
+    	tab.setText(gcFile.getName());
+    	accordionTabPane.getTabs().add(tab);
+    	tab.addData(analyzer, events);
     }
 
     @FXML
