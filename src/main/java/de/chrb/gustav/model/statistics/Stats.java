@@ -63,7 +63,6 @@ public class Stats {
 			.orElse(0.0);
 	}
 
-
 	/**
 	 * Returns the median of the given collection
 	 *
@@ -80,10 +79,15 @@ public class Stats {
 		return list.get(mid);
 	}
 
+	/**
+	 * Calculates the percentage of the given events from all events
+	 * @param events the events
+	 * @param allEvents all events
+	 * @return the percentage value between 0 and 100
+	 */
 	public static double numPerc(final List<GCEvent> events, final List<GCEvent> allEvents) {
 		return allEvents.isEmpty()? 0 : events.size() / (double)allEvents.size() * 100;
 	}
-
 
 	public static double gcSecsPercent(final double totalSecs, final double totalSecsAllEvents) {
 		return totalSecsAllEvents == 0? 0 : totalSecs / totalSecsAllEvents * 100;
@@ -104,8 +108,12 @@ public class Stats {
 				: totalSecs / totalElapsedTimeSinceMeasurement * 100;
 	}
 
-	public static double calcTotalTime(List<GCEvent> events) {
-
+	/**
+	 * The time between the first gc event and the last gc event
+	 * @param events all events
+	 * @return the time in secs
+	 */
+	private static double calcTotalTime(List<GCEvent> events) {
 		final List<Double> times = events.stream()
 				.map(event -> event.getTimeStats().getElappsedTime())
 				.collect(Collectors.toList());
