@@ -1,6 +1,7 @@
 package de.chrb.gustav.controller;
 
-import de.chrb.gustav.model.statistics.ChartSeriesCreator;
+import de.chrb.gustav.model.statistics.ChartSeries;
+import de.chrb.gustav.model.statistics.GCAnalyzeResult;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 
@@ -9,7 +10,7 @@ import javafx.scene.chart.BarChart;
  *
  * @author Christian Bannes
  */
-public class BarChartsController {
+public class BarChartsController implements Controller {
 
     @FXML private BarChart<String, Double> avg;
     @FXML private BarChart<String, Long> min;
@@ -26,7 +27,7 @@ public class BarChartsController {
      *
      * @param analyzer the result of one gc file analyzis
      */
-	public void addSeries(ChartSeriesCreator analyzer) {
+	public void addSeries(ChartSeries analyzer) {
 
     	this.num.getData().add(analyzer.createNumSeries());
     	this.overhead.getData().add(analyzer.createOverheadSeries());
@@ -37,6 +38,28 @@ public class BarChartsController {
     	this.numPerc.getData().add(analyzer.createNumPercSeries());
     	this.totalGC.getData().add(analyzer.createSecsPercSeries());
 
+	}
+
+
+	@Override
+	public void add(GCAnalyzeResult result) {
+		final ChartSeries analyzer = result.getChartSeries();
+
+    	this.num.getData().add(analyzer.createNumSeries());
+    	this.overhead.getData().add(analyzer.createOverheadSeries());
+    	this.avg.getData().add(analyzer.createAvgSeries());
+    	this.max.getData().add(analyzer.createMaxSeries());
+    	this.min.getData().add(analyzer.createMinSeries());
+    	this.sigma.getData().add(analyzer.createSigmaSeries());
+    	this.numPerc.getData().add(analyzer.createNumPercSeries());
+    	this.totalGC.getData().add(analyzer.createSecsPercSeries());
+
+	}
+
+
+	@Override
+	public void remove(String fromFileName) {
+		//TODO
 	}
 
 }

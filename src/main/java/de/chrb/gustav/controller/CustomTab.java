@@ -7,7 +7,8 @@ import java.util.List;
 
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.statistics.Characteristics;
-import de.chrb.gustav.model.statistics.ChartSeriesCreator;
+import de.chrb.gustav.model.statistics.ChartSeries;
+import de.chrb.gustav.model.statistics.GCAnalyzeResult;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -80,13 +81,14 @@ public class CustomTab extends Tab {
 	 * @param analyzer contains statistics analyze results
 	 * @param events the gc events
 	 */
-	public void addData(final ChartSeriesCreator analyzer, final List<GCEvent> events) {
-    	this.timeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
-    	this.pauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
+	public void addData(final GCAnalyzeResult result) {
+		final ChartSeries chartSeries = result.getChartSeries();
+    	this.timeline.setData(FXCollections.observableArrayList(chartSeries.createTimeline()));
+    	this.pauseDistribution.setData(FXCollections.observableArrayList(chartSeries.createPauseDistribution()));
 
-    	final Characteristics c = new Characteristics(events);
+    	final Characteristics c = new Characteristics(result.events());
     	this.importantDataTextArea.setHtmlText(c.text());
-    	this.pieStats.setData(FXCollections.observableArrayList(analyzer.createPieChartData()));
+    	this.pieStats.setData(FXCollections.observableArrayList(chartSeries.createPieChartData()));
 
     	final TitledPane p = this.accordion.getPanes().get(0);
     	this.accordion.setExpandedPane(p);

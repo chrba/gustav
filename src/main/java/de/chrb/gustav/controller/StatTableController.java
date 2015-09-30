@@ -1,6 +1,6 @@
 package de.chrb.gustav.controller;
+import de.chrb.gustav.model.statistics.GCAnalyzeResult;
 import de.chrb.gustav.model.statistics.Statistics;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
  *
  * @author Christian Bannes
  */
-public class StatTableController {
+public class StatTableController implements Controller {
 
     @FXML private TableColumn<Statistics, Number> num;
     @FXML private TableColumn<Statistics, Number> tocalGc;
@@ -44,19 +44,15 @@ public class StatTableController {
     	this.max.setCellValueFactory(s -> s.getValue().max);
     }
 
-//    /**
-//     * Adds the data to the statistics table. Each element in the list corresponds to
-//     * one table row.
-//     *
-//     * @param data the statistics data
-//     */
-//    public void addData(final List<Statistics> data) {
-//    	final ObservableList<Statistics> items = FXCollections.observableArrayList(data);
-//    	this.statTable.setItems(items);
-//    }
+	@Override
+	public void add(final GCAnalyzeResult result) {
+		this.statTable.getItems().addAll(result.getStatistics());
 
-    public void setItems(final ObservableList<Statistics> items) {
-    	this.statTable.setItems(items);
-    }
+	}
+
+	@Override
+	public void remove(final String fromFileName) {
+		this.statTable.getItems().removeIf(s -> s.fileName.get().equals(fromFileName));
+	}
 }
 

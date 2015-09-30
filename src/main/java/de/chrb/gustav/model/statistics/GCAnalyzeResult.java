@@ -2,6 +2,7 @@ package de.chrb.gustav.model.statistics;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.annotation.concurrent.Immutable;
@@ -20,34 +21,43 @@ import de.chrb.gustav.model.parser.ParserRegistry;
 public class GCAnalyzeResult {
 	private final Map<String, List<GCEvent>> eventsByName;
 	private final List<Statistics> statistics;
+	private final GCFile gcFile;
+	private final List<GCEvent> events;
 
 	/**
 	 * Constructor only used internally, use {@link #from(GCFile)}
 	 *
-	 * @param eventsByName the events by gc name
-	 * @param statistics the statistics
+	 * @param eventsByName
+	 *            the events by gc name
+	 * @param statistics
+	 *            the statistics
 	 */
-	private GCAnalyzeResult(final Map<String, List<GCEvent>> eventsByName, final List<Statistics> statistics) {
+	private GCAnalyzeResult(final GCFile gcFile, final Map<String, List<GCEvent>> eventsByName,
+			final List<Statistics> statistics, final List<GCEvent> events) {
 		this.eventsByName = eventsByName;
 		this.statistics = statistics;
+		this.gcFile = gcFile;
+		this.events = events;
 	}
 
 	/**
 	 * Parses the given gc file and creates a {@link AnalyseResult} object
 	 *
-	 * @param gcFile the gc file to parse
+	 * @param gcFile
+	 *            the gc file to parse
 	 * @return the {@link AnalyseResult}
 	 */
 	public static GCAnalyzeResult from(final GCFile gcFile) {
+		Objects.requireNonNull(gcFile);
 		final List<GCEvent> events = ParserRegistry.instance().parse(gcFile.toFile());
 		final Map<String, List<GCEvent>> eventsByName = events.stream()
 				.collect(Collectors.groupingBy(e -> e.getName()));
 
 		final List<Statistics> statistics = eventsByName.entrySet().stream()
-				.map( e -> new Statistics(gcFile.getName(), e.getKey(), e.getValue(), events))
+				.map(e -> new Statistics(gcFile.getName(), e.getKey(), e.getValue(), events))
 				.collect(Collectors.toList());
 
-		return new GCAnalyzeResult(eventsByName, statistics);
+		return new GCAnalyzeResult(gcFile, eventsByName, statistics, events);
 	}
 
 	/**
@@ -68,7 +78,16 @@ public class GCAnalyzeResult {
 		return this.eventsByName;
 	}
 
+	public ChartSeries getChartSeries() {
+		return new ChartSeries(this);
+	}
+
+	public GCFile getGCFile() {
+		return this.gcFile;
+	}
+
+	public List<GCEvent> events() {
+		return this.events;
+	}
+
 }
-
-
-

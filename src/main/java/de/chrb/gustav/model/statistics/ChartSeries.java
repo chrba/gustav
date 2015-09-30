@@ -10,11 +10,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
-public class ChartSeriesCreator {
+public class ChartSeries {
 	private final List<Statistics> statistics;
 	private final Map<String, List<GCEvent>> eventsByName;
 
-	public ChartSeriesCreator(final GCAnalyzeResult analyzeResult) {
+	public ChartSeries(final GCAnalyzeResult analyzeResult) {
 		this.statistics = analyzeResult.getStatistics();
 		this.eventsByName = analyzeResult.eventsByName();
 	}

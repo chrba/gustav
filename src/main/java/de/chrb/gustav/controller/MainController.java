@@ -1,6 +1,7 @@
 package de.chrb.gustav.controller;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import de.chrb.gustav.model.file.GCFile;
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.parser.ParserRegistry;
-import de.chrb.gustav.model.statistics.DataContainer;
+import de.chrb.gustav.model.statistics.GCAnalyzeResult;
 import de.chrb.gustav.model.statistics.Statistics;
-import de.chrb.gustav.model.statistics.ChartSeriesCreator;
+import de.chrb.gustav.model.statistics.ChartSeries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,19 +41,33 @@ public class MainController {
     @FXML private TabPane accordionTabPane;
    // private ParserRegistry parserRegistry;
 
+	private CompositeController dataConsumer;
+
 
 	//private final ObservableList<GCFile> files = FXCollections.observableArrayList();
 	//private ObservableList<Statistics> statistics = FXCollections.observableArrayList();
-    private final DataContainer dataContainer = new DataContainer();
+   // private final DataContainer dataContainer = new DataContainer();
+
+//	private FileListViewAdapter fileListViewAdapter;
+
+//	private TabPaneAdapter tabPaneAdapter;
 
 
 	@FXML
 	public void initialize() {
 
-		dataContainer.bind(this.fileListView);
-		dataContainer.bind(this.statTableViewController);
-		dataContainer.bind(this.barChartsViewController);
-		dataContainer.bind(this.accordionTabPane);
+		//this.fileListViewAdapter = new FileListViewAdapter(this.fileListView);
+		//this.tabPaneAdapter = new TabPaneAdapter(this.accordionTabPane);
+
+		this.dataConsumer = new CompositeController(Arrays.asList(barChartsViewController,
+				statTableViewController,
+				new TabPaneAdapter(this.accordionTabPane),
+				new FileListViewAdapter(this.fileListView)));
+
+//		dataContainer.bind(this.fileListView);
+//		dataContainer.bind(this.statTableViewController);
+//		dataContainer.bind(this.barChartsViewController);
+//		dataContainer.bind(this.accordionTabPane);
 	}
 
     @FXML
@@ -70,7 +85,10 @@ public class MainController {
     	//this.statTableViewController.addData(analyzer.statisticsList());
     	//this.statistics.addAll(analyzer.statisticsList());
     	//this.files.add(gcFile);
-    	this.dataContainer.add(gcFile);
+
+    	final GCAnalyzeResult gcResult = GCAnalyzeResult.from(gcFile);
+    	this.dataConsumer.add(gcResult);
+    	//this.dataContainer.add(gcFile);
 
     	//this.barChartsViewController.addSeries(analyzer);
     	//this.accordionViewController.addData(analyzer, events);
@@ -84,7 +102,9 @@ public class MainController {
     @FXML
     void removeFile(ActionEvent event) {
     	final GCFile gcFile = this.fileListView.getSelectionModel().getSelectedItem();
-    	this.dataContainer.remove(gcFile);
+    	this.dataConsumer.remove(gcFile.getName());
+    	//this.dataContainer.remove(gcFile);
+
     	//this.files.remove(gcFile);
     }
 
