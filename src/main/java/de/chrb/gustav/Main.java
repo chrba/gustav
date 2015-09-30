@@ -45,8 +45,8 @@ public class Main extends Application {
 
 
 		 final AnchorPane root = (AnchorPane) loader.load();
-		 final MainController controller = (MainController)loader.getController();
-		 controller.setGCParserRegistry(getParserRegistry());
+		// final MainController controller = (MainController)loader.getController();
+		// controller.setGCParserRegistry(getParserRegistry());
 		return root;
 	}
 
@@ -54,14 +54,5 @@ public class Main extends Application {
 		launch(args);
 	}
 
-	public ParserRegistry getParserRegistry() {
-		final List<GCParser> parsers = Arrays.asList(
-				new ParNewParser(),
-				new ConcurrentMarkParser(),
-				new ConcurrentResetParser(),
-				new ConcurrentSweepParser(),
-				new PreCleanParser());
-		return new ParserRegistry(parsers);
-	}
 
 }

@@ -1,11 +1,5 @@
 package de.chrb.gustav.controller;
-import java.util.List;
-
 import de.chrb.gustav.model.statistics.Statistics;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -50,14 +44,18 @@ public class StatTableController {
     	this.max.setCellValueFactory(s -> s.getValue().max);
     }
 
-    /**
-     * Adds the data to the statistics table. Each element in the list corresponds to
-     * one table row.
-     *
-     * @param data the statistics data
-     */
-    public void addData(final List<Statistics> data) {
-    	final ObservableList<Statistics> items = FXCollections.observableArrayList(data);
+//    /**
+//     * Adds the data to the statistics table. Each element in the list corresponds to
+//     * one table row.
+//     *
+//     * @param data the statistics data
+//     */
+//    public void addData(final List<Statistics> data) {
+//    	final ObservableList<Statistics> items = FXCollections.observableArrayList(data);
+//    	this.statTable.setItems(items);
+//    }
+
+    public void setItems(final ObservableList<Statistics> items) {
     	this.statTable.setItems(items);
     }
 }

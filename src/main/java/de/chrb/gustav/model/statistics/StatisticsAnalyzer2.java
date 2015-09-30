@@ -14,14 +14,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
 //one file will result in
-// 1 statistics object
-// XYChart.Series for each barchart
-
-// will be used in seperate tab:
-// List<XYChart.Series<Long, Long>> for pause distribution
-// List<PieChart.Data>
-// List<XYChart.Series<Double, Double>> for timeline
-
+// 1 statistics object > ObservableList<Statistics>
+// XYChart.Series for each barchart > ObservableList<Series> for each barchart
+// 1 Tab > ObservableList<Tab>
 public class StatisticsAnalyzer2 {
 	//private final Map<String, Statistics> statisticsByName;
 	private final ObservableList<Statistics> statistics;

@@ -4,6 +4,7 @@ package de.chrb.gustav.model.parser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.chrb.gustav.model.gc.GCEvent;
+import de.chrb.gustav.model.parser.cms.ConcurrentMarkParser;
+import de.chrb.gustav.model.parser.cms.ConcurrentResetParser;
+import de.chrb.gustav.model.parser.cms.ConcurrentSweepParser;
+import de.chrb.gustav.model.parser.cms.PreCleanParser;
+import de.chrb.gustav.model.parser.parnew.ParNewParser;
 
 
 /**
@@ -26,8 +32,13 @@ public class ParserRegistry {
 	private static Logger LOG = LoggerFactory.getLogger(ParserRegistry.class);
 	private List<GCParser> parsers;
 
-	public ParserRegistry(final List<GCParser> parsers) {
-		this.parsers = parsers;
+	public ParserRegistry() {
+		this.parsers = Arrays.asList(
+				new ParNewParser(),
+				new ConcurrentMarkParser(),
+				new ConcurrentResetParser(),
+				new ConcurrentSweepParser(),
+				new PreCleanParser());
 	}
 
 	/**
