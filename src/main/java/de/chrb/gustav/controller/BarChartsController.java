@@ -1,6 +1,6 @@
 package de.chrb.gustav.controller;
 
-import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
+import de.chrb.gustav.model.statistics.ChartSeriesCreator;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 
@@ -26,7 +26,7 @@ public class BarChartsController {
      *
      * @param analyzer the result of one gc file analyzis
      */
-	public void addSeries(StatisticsAnalyzer analyzer) {
+	public void addSeries(ChartSeriesCreator analyzer) {
 
     	this.num.getData().add(analyzer.createNumSeries());
     	this.overhead.getData().add(analyzer.createOverheadSeries());

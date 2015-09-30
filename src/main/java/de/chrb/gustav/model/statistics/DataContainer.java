@@ -1,5 +1,6 @@
 package de.chrb.gustav.model.statistics;
 
+import de.chrb.gustav.controller.BarChartsController;
 import de.chrb.gustav.controller.StatTableController;
 import de.chrb.gustav.model.file.GCFile;
 import javafx.collections.FXCollections;
@@ -7,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 /**
  * Class that holds all statistics data of a gc file.
@@ -21,12 +23,14 @@ public class DataContainer {
 	private final ObservableList<GCFile> files = FXCollections.observableArrayList();
 	private final ObservableList<Series<String, Integer>> nums = FXCollections.observableArrayList();
 
-	private final StatisticsParser statisticsParser = new StatisticsParser();
+	private BarChartsController barChartsViewController;
+	private TabPane accordionTabPane;
 
 
 	public void add(final GCFile gcFile) {
+		final GCAnalyzeResult statisticsParser = GCAnalyzeResult.from(gcFile);
 		this.files.add(gcFile);
-		this.statistics.addAll(statisticsParser.createNewFrom(gcFile));
+		this.statistics.addAll(statisticsParser.getStatistics());
 	}
 
 	public void remove(final GCFile gcFile) {
@@ -42,6 +46,16 @@ public class DataContainer {
 
 	public void bind(final ListView<GCFile> listView) {
 		listView.setItems(this.files);
+	}
+
+	public void bind(BarChartsController barChartsViewController) {
+		this.barChartsViewController = barChartsViewController;
+
+	}
+
+	public void bind(TabPane accordionTabPane) {
+
+		this.accordionTabPane = accordionTabPane;
 	}
 
 

@@ -5,46 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import de.chrb.gustav.model.file.GCFile;
 import de.chrb.gustav.model.gc.GCEvent;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
-public class StatisticsAnalyzer {
-	//private final Map<String, Statistics> statisticsByName;
-	private final ObservableList<Statistics> statistics;
+public class ChartSeriesCreator {
+	private final List<Statistics> statistics;
 	private final Map<String, List<GCEvent>> eventsByName;
-	private final List<GCEvent> sortedEvents;
 
-	public StatisticsAnalyzer(final GCFile gcFile, final List<GCEvent> events) {
-		this.sortedEvents = new ArrayList<>(events);
-		this.sortedEvents.sort((e1, e2) -> Double.compare(e1.getTimeStats().getElappsedTime(), e2.getTimeStats().getElappsedTime()));
-
-		this.eventsByName = events.stream()
-				.collect(Collectors.groupingBy(e -> e.getName()));
-
-		this.statistics = FXCollections.observableArrayList(eventsByName.entrySet().stream()
-			.map( e -> new Statistics(gcFile.getName(), e.getKey(), e.getValue(), events))
-			.collect(Collectors.toList()));
-	}
-	public List<Statistics> statisticsList() {
-		return	this.statistics;
-	}
-
-	private void test() {
-
-		ObservableList<Series<String, Integer>> ob1 = null;
-		ObservableList<Statistics> ob2 = null;
-
-		ob2.removeIf(p -> p.fileName.equals("x"));
-		ob1.removeIf(s -> s.getName().equals("name"));
-	}
-
-	private void test2(ObservableList<Series<?, ?>> x) {
-		x.removeIf(s -> s.getName().equals("name"));
+	public ChartSeriesCreator(final GCAnalyzeResult analyzeResult) {
+		this.statistics = analyzeResult.getStatistics();
+		this.eventsByName = analyzeResult.eventsByName();
 	}
 
 	public XYChart.Series<String, Integer> createNumSeries() {
@@ -103,28 +75,26 @@ public class StatisticsAnalyzer {
 	}
 
 	public List<XYChart.Series<Double, Double>> createTimeline() {
-
 		final List<XYChart.Series<Double, Double>> serieses = new ArrayList<>();
 		this.eventsByName.forEach((k, v) -> serieses.add(createNewSeries(v)));
 		return serieses;
 	}
-	private Series<Double, Double> createNewSeries(List<GCEvent> events) {
-		XYChart.Series<Double, Double> series = new XYChart.Series<>();
-		events.forEach(e ->  series.getData().add(new XYChart.Data<>(e.getTimeStats().getElappsedTime(), e.getTimeStats().getDuration())));
-		return series;
-	}
 
 	public List<XYChart.Series<Long, Long>> createPauseDistribution() {
-
 		final List<XYChart.Series<Long, Long>> serieses = new ArrayList<>();
 		this.eventsByName.forEach((k, v) -> serieses.add(createPauseDistributionSeries(v)));
 		return serieses;
 	}
 
+	public List<PieChart.Data> createPieChartData() {
+		final List<PieChart.Data> series = new ArrayList<>();
+		this.eventsByName.forEach((k, v) -> series.add(new PieChart.Data(k, v.size())));
+		return series;
+	}
+
 	private Series<Long, Long> createPauseDistributionSeries(List<GCEvent> events) {
 		XYChart.Series<Long, Long> series = new XYChart.Series<>();
 		final Map<Long, Long> map = events.stream().collect(Collectors.groupingBy(e -> duration(e), Collectors.counting()));
-
 		map.forEach((k, v) -> series.getData().add(new XYChart.Data<>(k, v)));
 		return series;
 	}
@@ -135,11 +105,10 @@ public class StatisticsAnalyzer {
 		final long duration = i * fac;
 		return duration;
 	}
-	public List<PieChart.Data> createPieChartData() {
-		final List<PieChart.Data> series = new ArrayList<>();
 
-		this.eventsByName.forEach((k, v) -> series.add(new PieChart.Data(k, v.size())));
-
+	private Series<Double, Double> createNewSeries(List<GCEvent> events) {
+		XYChart.Series<Double, Double> series = new XYChart.Series<>();
+		events.forEach(e ->  series.getData().add(new XYChart.Data<>(e.getTimeStats().getElappsedTime(), e.getTimeStats().getDuration())));
 		return series;
 	}
 }

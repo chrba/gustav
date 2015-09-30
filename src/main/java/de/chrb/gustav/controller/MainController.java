@@ -11,7 +11,7 @@ import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.parser.ParserRegistry;
 import de.chrb.gustav.model.statistics.DataContainer;
 import de.chrb.gustav.model.statistics.Statistics;
-import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
+import de.chrb.gustav.model.statistics.ChartSeriesCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,8 +51,8 @@ public class MainController {
 
 		dataContainer.bind(this.fileListView);
 		dataContainer.bind(this.statTableViewController);
-		//this.statTableViewController.setItems(this.statistics);
-		//this.fileListView.setItems(this.files);
+		dataContainer.bind(this.barChartsViewController);
+		dataContainer.bind(this.accordionTabPane);
 	}
 
     @FXML

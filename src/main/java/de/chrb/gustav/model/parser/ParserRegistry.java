@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.concurrent.Immutable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,21 +28,30 @@ import de.chrb.gustav.model.parser.parnew.ParNewParser;
  * The entry point of gc parsing. It delegates to gc parsers that are
  * annotated with {@link ActiveGCParser}.
  *
+ * Singleton implementation
+ *
  * @author Christian Bannes
  */
+@Immutable
 public class ParserRegistry {
 	private static Logger LOG = LoggerFactory.getLogger(ParserRegistry.class);
-	private List<GCParser> parsers;
+	private static final List<GCParser> parsers =  Arrays.asList(
+			new ParNewParser(),
+			new ConcurrentMarkParser(),
+			new ConcurrentResetParser(),
+			new ConcurrentSweepParser(),
+			new PreCleanParser());
 
-	public ParserRegistry() {
-		this.parsers = Arrays.asList(
-				new ParNewParser(),
-				new ConcurrentMarkParser(),
-				new ConcurrentResetParser(),
-				new ConcurrentSweepParser(),
-				new PreCleanParser());
+	private static final ParserRegistry INSTANCE = new ParserRegistry();
+
+	/**
+	 * Returns the singleton instance of the {@link ParserRegistry}
+	 *
+	 * @return the singleton
+	 */
+	public static ParserRegistry instance() {
+		return INSTANCE;
 	}
-
 	/**
 	 * Parses the lines of the given buffered reader. During the parse operation every recognised
 	 * garbace collection event (like a minor gc or full gc) will result in a fired {@link GCEvent} that
@@ -65,7 +76,7 @@ public class ParserRegistry {
 	}
 
 	private Optional<GCEvent> parse(final String line) {
-		final Optional<GCParser> parser = this.parsers.stream()
+		final Optional<GCParser> parser = parsers.stream()
 				.filter(p -> p.consume(line))
 				.findFirst();
 

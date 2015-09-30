@@ -1,12 +1,13 @@
 package de.chrb.gustav.controller;
 
 import java.io.IOException;
+
 import java.util.Arrays;
 import java.util.List;
 
 import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.statistics.Characteristics;
-import de.chrb.gustav.model.statistics.StatisticsAnalyzer;
+import de.chrb.gustav.model.statistics.ChartSeriesCreator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -19,6 +20,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
 import javafx.scene.web.HTMLEditor;
 
+/**
+ * Represents one tab for one gc file with some charts showing statistics
+ * of a gc analyzis.
+ *
+ * @author Christian Bannes
+ */
 public class CustomTab extends Tab {
     @FXML private HTMLEditor importantDataTextArea;
     @FXML private ScatterChart<Double, Double> timeline;
@@ -26,6 +33,9 @@ public class CustomTab extends Tab {
     @FXML private PieChart pieStats;
     @FXML private Accordion accordion;
 
+    /**
+     * Creates new CustomTab
+     */
     public CustomTab() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Accordion.fxml"));
         fxmlLoader.setRoot(this);
@@ -70,7 +80,7 @@ public class CustomTab extends Tab {
 	 * @param analyzer contains statistics analyze results
 	 * @param events the gc events
 	 */
-	public void addData(final StatisticsAnalyzer analyzer, final List<GCEvent> events) {
+	public void addData(final ChartSeriesCreator analyzer, final List<GCEvent> events) {
     	this.timeline.setData(FXCollections.observableArrayList(analyzer.createTimeline()));
     	this.pauseDistribution.setData(FXCollections.observableArrayList(analyzer.createPauseDistribution()));
 
