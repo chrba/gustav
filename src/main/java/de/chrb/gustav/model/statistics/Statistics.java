@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.concurrent.Immutable;
+
 import de.chrb.gustav.model.gc.GCEvent;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
@@ -19,6 +21,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
  *
  * @author Christian Bannes
  */
+@Immutable
 public class Statistics {
 	public final ReadOnlyStringProperty fileName;
 	public final ReadOnlyStringProperty name;
