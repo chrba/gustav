@@ -1,11 +1,8 @@
 package de.chrb.gustav.controller;
 
 import java.io.IOException;
-
 import java.util.Arrays;
-import java.util.List;
 
-import de.chrb.gustav.model.gc.GCEvent;
 import de.chrb.gustav.model.statistics.Characteristics;
 import de.chrb.gustav.model.statistics.ChartSeries;
 import de.chrb.gustav.model.statistics.GCAnalyzeResult;
