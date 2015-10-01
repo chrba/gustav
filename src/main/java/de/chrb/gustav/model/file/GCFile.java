@@ -13,19 +13,21 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public class GCFile {
 	private File file;
+	private int count;
 
 	/**
 	 * Create a new gc file
 	 *
 	 * @param file the underlying gc file
 	 */
-	public GCFile(final File file) {
+	public GCFile(final File file, final int count) {
 		this.file = file;
+		this.count = count;
 	}
 
 	@Override
 	public String toString() {
-		return "file: " + this.file.getName();
+		return "file-" + count + ": " + this.file.getName();
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package de.chrb.gustav.controller;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.LongAdder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class MainController {
     @FXML private TabPane accordionTabPane;
 
 	private CompositeObserver gcResultObserver;
+	private final LongAdder adder = new LongAdder();
 
 	/**
 	 * Initialize the gcResultObserver
@@ -61,11 +63,13 @@ public class MainController {
 	 */
     @FXML
     void addNewFile(ActionEvent event) {
-    	LOG.debug("add new gc file");;
+    	LOG.debug("add new gc file");
+    	this.adder.increment();
+
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
     	final Stage stage = (Stage)root.getScene().getWindow();
-    	final GCFile gcFile = new GCFile(fileChooser.showOpenDialog(stage));
+    	final GCFile gcFile = new GCFile(fileChooser.showOpenDialog(stage), this.adder.intValue());
 
     	final GCAnalyzeResult gcResult = GCAnalyzeResult.from(gcFile);
     	this.gcResultObserver.observe(gcResult);
