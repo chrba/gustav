@@ -1,30 +1,31 @@
 package de.chrb.gustav.controller;
 
-import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.chrb.gustav.model.file.GCFile;
-import de.chrb.gustav.model.gc.GCEvent;
-import de.chrb.gustav.model.parser.ParserRegistry;
 import de.chrb.gustav.model.statistics.GCAnalyzeResult;
-import de.chrb.gustav.model.statistics.Statistics;
-import de.chrb.gustav.model.statistics.ChartSeries;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * The main controller bunching together all gui
+ * controlls. The main controller is the entry point
+ * for gc parsing. The controller will be notified through
+ * {@link #addNewFile(ActionEvent)} when a new gc file is added
+ * and through {@link #removeFile(ActionEvent)} when a gc file
+ * is removed.
+ *
+ * @author Christian Bannes
+ */
 public class MainController {
 	private static Logger LOG = LoggerFactory.getLogger(MainController.class);
 
@@ -41,61 +42,44 @@ public class MainController {
 
 	private CompositeObserver gcResultObserver;
 
-
-
+	/**
+	 * Initialize the gcResultObserver
+	 */
 	@FXML
 	public void initialize() {
-
-		//this.fileListViewAdapter = new FileListViewAdapter(this.fileListView);
-		//this.tabPaneAdapter = new TabPaneAdapter(this.accordionTabPane);
-
-		this.gcResultObserver = new CompositeObserver(Arrays.asList(barChartsViewController,
+		this.gcResultObserver = new CompositeObserver(Arrays.asList(
+				barChartsViewController,
 				statTableViewController,
 				new TabPaneGCObserver(this.accordionTabPane),
 				new FileListViewGCObserver(this.fileListView)));
-
-//		dataContainer.bind(this.fileListView);
-//		dataContainer.bind(this.statTableViewController);
-//		dataContainer.bind(this.barChartsViewController);
-//		dataContainer.bind(this.accordionTabPane);
 	}
 
+	/**
+	 * Event notification when a new gc file is added.
+	 *
+	 * @param event the action event triggered when a new gc file is added
+	 */
     @FXML
     void addNewFile(ActionEvent event) {
+    	LOG.debug("add new gc file");;
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
     	final Stage stage = (Stage)root.getScene().getWindow();
     	final GCFile gcFile = new GCFile(fileChooser.showOpenDialog(stage));
 
-    	//final List<GCEvent> events = parserRegistry.parse(gcFile.toFile());
-    //	LOG.debug("Found {} GCEvents", events.size());
-
-    	//final StatisticsAnalyzer analyzer = new StatisticsAnalyzer(gcFile, events);
-
-    	//this.statTableViewController.addData(analyzer.statisticsList());
-    	//this.statistics.addAll(analyzer.statisticsList());
-    	//this.files.add(gcFile);
-
     	final GCAnalyzeResult gcResult = GCAnalyzeResult.from(gcFile);
     	this.gcResultObserver.observe(gcResult);
-    	//this.dataContainer.add(gcFile);
-
-    	//this.barChartsViewController.addSeries(analyzer);
-    	//this.accordionViewController.addData(analyzer, events);
-
-//    	final CustomTab tab = new CustomTab();
-//    	tab.setText(gcFile.getName());
-//    	accordionTabPane.getTabs().add(tab);
-//    	tab.addData(analyzer, events);
     }
 
+    /**
+     * Event notification when a gc file is removed
+     *
+	 * @param event the action event triggered when a new gc file is added
+     */
     @FXML
     void removeFile(ActionEvent event) {
     	final GCFile gcFile = this.fileListView.getSelectionModel().getSelectedItem();
     	this.gcResultObserver.remove(gcFile.getName());
-    	//this.dataContainer.remove(gcFile);
-
-    	//this.files.remove(gcFile);
     }
 
 
