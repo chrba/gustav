@@ -15,13 +15,14 @@ public class TabPaneGCObserver implements GCResultObserver {
 	public void observe(GCAnalyzeResult result) {
     	final CustomTab tab = new CustomTab();
     	tab.setText(result.getGCFile().getName());
+    	tab.setId(result.getGCFile().getName());
     	accordionTabPane.getTabs().add(tab);
     	tab.addData(result);
 	}
 
 	@Override
 	public void remove(String fromFileName) {
-		// TODO Auto-generated method stub
+		accordionTabPane.getTabs().removeIf(t -> t.getId().equals(fromFileName));
 
 	}
 
