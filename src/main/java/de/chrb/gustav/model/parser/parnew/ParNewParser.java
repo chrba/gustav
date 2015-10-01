@@ -53,7 +53,7 @@ public class ParNewParser extends AbstractParser {
 				.regex(Patterns.timestampOfGcStart()).any()
 				.regex("#eden", Patterns.memStatOccupancyBeforeAfterAndTotal()).any()
 				.regex("#heap", Patterns.memStatOccupancyBeforeAfterAndTotal()).any()
-				.regex(Patterns.eofTotalGCDuration()).any()
+				.regex(Patterns.endOfLastLineTotalGCDuration()).any()
 				.build();
 	}
 

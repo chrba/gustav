@@ -52,7 +52,7 @@ public abstract class ConcurrentPhaseParser extends AbstractParser {
 		return RegexBuilder.create()
 			.regex(Patterns.timestampOfGcStart()).any()
 			.number("#elapsedTime").constant("/").number("#wallClockTime").constant(" secs]").any()
-			.regex(Patterns.eofTotalGCDuration()).any()
+			.regex(Patterns.endOfLastLineTotalGCDuration()).any()
 			.build();
 	}
 

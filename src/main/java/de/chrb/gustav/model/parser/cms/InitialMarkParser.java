@@ -37,8 +37,7 @@ import de.java.regexdsl.model.RegexBuilder;
  */
 public class InitialMarkParser extends AbstractParser {
 
-	private final static Regex INITIAL_MARK = createInitialMarkPattern();
-	 InitialMarkGCEvent event;
+	private final static Regex INITIAL_MARK_PATTERN = createInitialMarkPattern();
 
 	@Override
 	public boolean isMultiLine() {
@@ -57,7 +56,7 @@ public class InitialMarkParser extends AbstractParser {
 
 	@Override
 	protected Regex pattern() {
-		return INITIAL_MARK;
+		return INITIAL_MARK_PATTERN;
 	}
 
 	/**
@@ -69,7 +68,7 @@ public class InitialMarkParser extends AbstractParser {
 		.regex(Patterns.timestampOfGcStart()).any()
 		.regex("#tenured", Patterns.memStatOccupancyBeforeAndTotal()).any()
 		.regex("#heap", Patterns.memStatOccupancyBeforeAndTotal()).any()
-		.regex(Patterns.eofTotalGCDuration()).any()
+		.regex(Patterns.endOfLastLineTotalGCDuration()).any()
 		.build();
 	}
 

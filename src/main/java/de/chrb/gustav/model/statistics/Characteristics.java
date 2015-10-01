@@ -47,11 +47,9 @@ public class Characteristics {
 	 * @return the promotion rate, always >= 0
 	 */
 	public double promotionRate(final List<GCEvent> allEvents) {
-		//how fillhow full after gc
+		//1. get tenured after fullgc (last step after full gc)
 
-		//1. get tenured after fullgc
-
-		//2. get tenured at initial mark
+		//2. get tenured at start of fullgc
 
 		//2-1 = garbage added
 
@@ -82,12 +80,21 @@ public class Characteristics {
 	}
 
 
-
+	/**
+	 * Determines the average occupancy of the old gen after a full gc.
+	 *
+	 *
+	 * @return the live data size
+	 */
 	public int liveDataSize() {
 		return 0;
 	}
 
-	public int timeBetwenTwoYoungGen() {
+	public int timeBetwenTwoMinorGCs() {
+		return 0;
+	}
+
+	public int timeBetwenTwoMajorGCs() {
 		return 0;
 	}
 

@@ -39,7 +39,7 @@ public class Patterns {
 	 *
 	 * @return the regex
 	 */
-	public static Regex eofTotalGCDuration() {
+	public static Regex endOfLastLineTotalGCDuration() {
 		return RegexBuilder.create()
 			.pattern("[^\\d\\.]")
 			.number("#duration")
