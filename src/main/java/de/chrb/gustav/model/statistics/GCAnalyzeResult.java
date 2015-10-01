@@ -1,5 +1,6 @@
 package de.chrb.gustav.model.statistics;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -34,10 +35,10 @@ public class GCAnalyzeResult {
 	 */
 	private GCAnalyzeResult(final GCFile gcFile, final Map<String, List<GCEvent>> eventsByName,
 			final List<Statistics> statistics, final List<GCEvent> events) {
-		this.eventsByName = eventsByName;
-		this.statistics = statistics;
-		this.gcFile = gcFile;
-		this.events = events;
+		this.gcFile = Objects.requireNonNull(gcFile);
+		this.eventsByName = Collections.unmodifiableMap(Objects.requireNonNull(eventsByName));
+		this.statistics = Collections.unmodifiableList(Objects.requireNonNull(statistics));
+		this.events = Collections.unmodifiableList(Objects.requireNonNull(events));
 	}
 
 	/**
@@ -61,18 +62,18 @@ public class GCAnalyzeResult {
 	}
 
 	/**
-	 * Gets the analyzed statistics of a gc file
+	 * Gets the analyzed statistics of a gc file, unmodifiable
 	 *
-	 * @return the list of statistics.
+	 * @return an unmodifiable list
 	 */
 	public List<Statistics> getStatistics() {
 		return this.statistics;
 	}
 
 	/**
-	 * Gets all found events by GC name
+	 * Gets all found events by GC name, unmodifiable
 	 *
-	 * @return all events
+	 * @return an unmodifiable map
 	 */
 	public Map<String, List<GCEvent>> eventsByName() {
 		return this.eventsByName;
@@ -82,10 +83,20 @@ public class GCAnalyzeResult {
 		return new ChartSeries(this);
 	}
 
+	/**
+	 * Returns the gc file
+	 *
+	 * @return the gc file
+	 */
 	public GCFile getGCFile() {
 		return this.gcFile;
 	}
 
+	/**
+	 * Returns all found gc events, unmodifiable
+	 *
+	 * @return an unmodifiable list
+	 */
 	public List<GCEvent> events() {
 		return this.events;
 	}

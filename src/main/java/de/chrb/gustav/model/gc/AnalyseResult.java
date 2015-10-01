@@ -10,11 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.annotation.concurrent.Immutable;
+
 
 
 /**
  * Represents the result of ONE log file analysis.
  */
+@Immutable
 public class AnalyseResult implements Serializable {
 	private static final long serialVersionUID = -2983890629567244775L;
 	private final String name;

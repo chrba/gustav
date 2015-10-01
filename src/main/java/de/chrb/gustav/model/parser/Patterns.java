@@ -4,7 +4,11 @@ package de.chrb.gustav.model.parser;
 import de.java.regexdsl.model.Regex;
 import de.java.regexdsl.model.RegexBuilder;
 
-
+/***
+ * Utility class providing common regex patterns
+ *
+ * @author Christian Bannes
+ */
 public class Patterns {
 
 	public static Regex date() {
