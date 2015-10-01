@@ -10,7 +10,7 @@ import javafx.scene.chart.BarChart;
  *
  * @author Christian Bannes
  */
-public class BarChartsController implements Controller {
+public class BarChartsController implements GCResultObserver {
 
     @FXML private BarChart<String, Double> avg;
     @FXML private BarChart<String, Long> min;
@@ -22,44 +22,32 @@ public class BarChartsController implements Controller {
     @FXML private BarChart<String, Double> sigma;
 
 
-    /**
-     * Adds the result of one gc file analyzis to the bar charts
-     *
-     * @param analyzer the result of one gc file analyzis
-     */
-	public void addSeries(ChartSeries analyzer) {
-
-    	this.num.getData().add(analyzer.createNumSeries());
-    	this.overhead.getData().add(analyzer.createOverheadSeries());
-    	this.avg.getData().add(analyzer.createAvgSeries());
-    	this.max.getData().add(analyzer.createMaxSeries());
-    	this.min.getData().add(analyzer.createMinSeries());
-    	this.sigma.getData().add(analyzer.createSigmaSeries());
-    	this.numPerc.getData().add(analyzer.createNumPercSeries());
-    	this.totalGC.getData().add(analyzer.createSecsPercSeries());
-
-	}
-
 
 	@Override
-	public void add(GCAnalyzeResult result) {
+	public void observe(GCAnalyzeResult result) {
 		final ChartSeries analyzer = result.getChartSeries();
-
-    	this.num.getData().add(analyzer.createNumSeries());
-    	this.overhead.getData().add(analyzer.createOverheadSeries());
-    	this.avg.getData().add(analyzer.createAvgSeries());
-    	this.max.getData().add(analyzer.createMaxSeries());
-    	this.min.getData().add(analyzer.createMinSeries());
-    	this.sigma.getData().add(analyzer.createSigmaSeries());
-    	this.numPerc.getData().add(analyzer.createNumPercSeries());
-    	this.totalGC.getData().add(analyzer.createSecsPercSeries());
-
+		final String name = result.getGCFile().getName();
+    	this.num.getData().add(analyzer.createNumSeries(name));
+    	this.overhead.getData().add(analyzer.createOverheadSeries(name));
+    	this.avg.getData().add(analyzer.createAvgSeries(name));
+    	this.max.getData().add(analyzer.createMaxSeries(name));
+    	this.min.getData().add(analyzer.createMinSeries(name));
+    	this.sigma.getData().add(analyzer.createSigmaSeries(name));
+    	this.numPerc.getData().add(analyzer.createNumPercSeries(name));
+    	this.totalGC.getData().add(analyzer.createSecsPercSeries(name));
 	}
 
 
 	@Override
 	public void remove(String fromFileName) {
-		//TODO
+		this.num.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.overhead.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.avg.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.max.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.min.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.sigma.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.numPerc.getData().removeIf(s -> s.getName().equals(fromFileName));
+		this.totalGC.getData().removeIf(s -> s.getName().equals(fromFileName));
 	}
 
 }

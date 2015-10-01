@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
  *
  * @author Christian Bannes
  */
-public class StatTableController implements Controller {
+public class StatTableController implements GCResultObserver {
 
     @FXML private TableColumn<Statistics, Number> num;
     @FXML private TableColumn<Statistics, Number> tocalGc;
@@ -45,7 +45,7 @@ public class StatTableController implements Controller {
     }
 
 	@Override
-	public void add(final GCAnalyzeResult result) {
+	public void observe(final GCAnalyzeResult result) {
 		this.statTable.getItems().addAll(result.getStatistics());
 
 	}

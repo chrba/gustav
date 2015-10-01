@@ -4,16 +4,16 @@ import de.chrb.gustav.model.file.GCFile;
 import de.chrb.gustav.model.statistics.GCAnalyzeResult;
 import javafx.scene.control.ListView;
 
-public class FileListViewAdapter implements Controller {
+public class FileListViewGCObserver implements GCResultObserver {
 
 	private ListView<GCFile> fileListView;
 
-	public FileListViewAdapter(ListView<GCFile> fileListView) {
+	public FileListViewGCObserver(ListView<GCFile> fileListView) {
 		this.fileListView = fileListView;
 	}
 
 	@Override
-	public void add(GCAnalyzeResult result) {
+	public void observe(GCAnalyzeResult result) {
 		this.fileListView.getItems().add(result.getGCFile());
 	}
 

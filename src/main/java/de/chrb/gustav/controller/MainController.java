@@ -36,21 +36,11 @@ public class MainController {
 
     @FXML private StatTableController statTableViewController;
     @FXML private BarChartsController barChartsViewController;
-   // @FXML private AccordionController accordionViewController;
 
     @FXML private TabPane accordionTabPane;
-   // private ParserRegistry parserRegistry;
 
-	private CompositeController dataConsumer;
+	private CompositeObserver gcResultObserver;
 
-
-	//private final ObservableList<GCFile> files = FXCollections.observableArrayList();
-	//private ObservableList<Statistics> statistics = FXCollections.observableArrayList();
-   // private final DataContainer dataContainer = new DataContainer();
-
-//	private FileListViewAdapter fileListViewAdapter;
-
-//	private TabPaneAdapter tabPaneAdapter;
 
 
 	@FXML
@@ -59,10 +49,10 @@ public class MainController {
 		//this.fileListViewAdapter = new FileListViewAdapter(this.fileListView);
 		//this.tabPaneAdapter = new TabPaneAdapter(this.accordionTabPane);
 
-		this.dataConsumer = new CompositeController(Arrays.asList(barChartsViewController,
+		this.gcResultObserver = new CompositeObserver(Arrays.asList(barChartsViewController,
 				statTableViewController,
-				new TabPaneAdapter(this.accordionTabPane),
-				new FileListViewAdapter(this.fileListView)));
+				new TabPaneGCObserver(this.accordionTabPane),
+				new FileListViewGCObserver(this.fileListView)));
 
 //		dataContainer.bind(this.fileListView);
 //		dataContainer.bind(this.statTableViewController);
@@ -87,7 +77,7 @@ public class MainController {
     	//this.files.add(gcFile);
 
     	final GCAnalyzeResult gcResult = GCAnalyzeResult.from(gcFile);
-    	this.dataConsumer.add(gcResult);
+    	this.gcResultObserver.observe(gcResult);
     	//this.dataContainer.add(gcFile);
 
     	//this.barChartsViewController.addSeries(analyzer);
@@ -102,7 +92,7 @@ public class MainController {
     @FXML
     void removeFile(ActionEvent event) {
     	final GCFile gcFile = this.fileListView.getSelectionModel().getSelectedItem();
-    	this.dataConsumer.remove(gcFile.getName());
+    	this.gcResultObserver.remove(gcFile.getName());
     	//this.dataContainer.remove(gcFile);
 
     	//this.files.remove(gcFile);

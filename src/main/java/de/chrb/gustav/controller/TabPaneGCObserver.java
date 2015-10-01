@@ -3,16 +3,16 @@ package de.chrb.gustav.controller;
 import de.chrb.gustav.model.statistics.GCAnalyzeResult;
 import javafx.scene.control.TabPane;
 
-public class TabPaneAdapter implements Controller {
+public class TabPaneGCObserver implements GCResultObserver {
 
 	private TabPane accordionTabPane;
 
-	public TabPaneAdapter(TabPane accordionTabPane) {
+	public TabPaneGCObserver(TabPane accordionTabPane) {
 		this.accordionTabPane = accordionTabPane;
 	}
 
 	@Override
-	public void add(GCAnalyzeResult result) {
+	public void observe(GCAnalyzeResult result) {
     	final CustomTab tab = new CustomTab();
     	tab.setText(result.getGCFile().getName());
     	accordionTabPane.getTabs().add(tab);

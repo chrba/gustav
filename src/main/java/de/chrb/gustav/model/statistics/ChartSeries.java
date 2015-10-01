@@ -19,57 +19,66 @@ public class ChartSeries {
 		this.eventsByName = analyzeResult.eventsByName();
 	}
 
-	public XYChart.Series<String, Integer> createNumSeries() {
+	public XYChart.Series<String, Integer> createNumSeries(final String name) {
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
-		series.setName("test");
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.num.get())));
 		return series;
 	}
 
-	public XYChart.Series<String, Double> createNumPercSeries() {
+	public XYChart.Series<String, Double> createNumPercSeries(final String name) {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.numPerc.get())));
 		return series;
 	}
 
-	public XYChart.Series<String, Double> createSecsSeries() {
+	public XYChart.Series<String, Double> createSecsSeries(final String name) {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.secs.get())));
 		return series;
 	}
 
-	public XYChart.Series<String, Double> createSecsPercSeries() {
+	public XYChart.Series<String, Double> createSecsPercSeries(final String name) {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.secsPerc.get())));
 		return series;
 	}
-	public XYChart.Series<String, Double> createOverheadSeries() {
+	public XYChart.Series<String, Double> createOverheadSeries(final String name) {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.overhead.get())));
 		return series;
 	}
-	public XYChart.Series<String, Double> createAvgSeries() {
+	public XYChart.Series<String, Double> createAvgSeries(final String name) {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.avg.get())));
 		return series;
 	}
-	public XYChart.Series<String, Double> createSigmaSeries() {
+	public XYChart.Series<String, Double> createSigmaSeries(final String name) {
 		XYChart.Series<String, Double> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.sigma.get())));
 		return series;
 	}
-	public XYChart.Series<String, Long> createMaxSeries() {
+	public XYChart.Series<String, Long> createMaxSeries(final String name) {
 		XYChart.Series<String, Long> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.max.get())));
 		return series;
 	}
-	public XYChart.Series<String, Long> createMinSeries() {
+	public XYChart.Series<String, Long> createMinSeries(final String name) {
 		XYChart.Series<String, Long> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.min.get())));
 		return series;
 	}
-	public XYChart.Series<String, Long> createMedianSeries() {
+	public XYChart.Series<String, Long> createMedianSeries(final String name) {
 		XYChart.Series<String, Long> series = new XYChart.Series<>();
+		series.setName(name);
 		this.statistics.forEach(s -> series.getData().add(new XYChart.Data<>(s.name.get(), s.median.get())));
 		return series;
 	}
