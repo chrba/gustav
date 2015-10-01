@@ -81,6 +81,17 @@ public class Characteristics {
 		return Math.round(totalYoungGenCapacity / avgTimeBetweenEvents(minorEvents) / 1000.0);
 	}
 
+
+
+	public int liveDataSize() {
+		return 0;
+	}
+
+	public int timeBetwenTwoYoungGen() {
+		return 0;
+	}
+
+
 	private int avgTimeBetweenEvents(final Stream<GCEvent> minorEvents) {
 		final double[] elapsedTimes = minorEvents
 			.mapToDouble(e -> e.getTimeStats().getElappsedTime())
@@ -92,15 +103,6 @@ public class Characteristics {
 		}
 		return s / elapsedTimes.length;
 	}
-
-	public int liveDataSize() {
-		return 0;
-	}
-
-	public int timeBetwenTwoYoungGen() {
-		return 0;
-	}
-
 
 	//Checks:
 	// oldgen >= 1.5 * livedata size
