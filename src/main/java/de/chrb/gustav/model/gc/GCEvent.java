@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
+
 /**
  * Represents one minor or major garbage collection event of the JVM.
  *
@@ -47,5 +48,4 @@ public interface GCEvent  {
 	 * @return the event name
 	 */
 	@Nonnull String getName();
-
 }

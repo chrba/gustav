@@ -25,7 +25,6 @@ public class MinorGCEvent extends AbstractGCEvent {
 	public MinorGCEvent(final String name, final GCTimeStats timeStats, final GCMemStats memStats) {
 		super(name, timeStats, Optional.of(memStats));
 	}
-
 	/**
 	 * This garbage collector runs in parallel with the application
 	 * threads.

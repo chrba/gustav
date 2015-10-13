@@ -35,5 +35,4 @@ public class ConcurrentPhaseEvent extends AbstractGCEvent {
 	public boolean isMinor() {
 		return false;
 	}
-
 }

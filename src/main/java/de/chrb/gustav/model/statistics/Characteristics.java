@@ -47,16 +47,8 @@ public class Characteristics {
 	 * @return the promotion rate, always >= 0
 	 */
 	public double promotionRate(final List<GCEvent> allEvents) {
-		//1. get tenured after fullgc (last step after full gc)
-
-		//2. get tenured at start of fullgc
-
-		//2-1 = garbage added
-
-		//calc garbage added / time between full gcs
-
-
-		return 0D;
+	    final PromitionRateCalculator calculator = new PromitionRateCalculator();
+	    return calculator.promitionRateOf(allEvents);
 	}
 
 	/**
