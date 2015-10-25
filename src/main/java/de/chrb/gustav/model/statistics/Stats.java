@@ -71,9 +71,9 @@ public class Stats {
 	 */
 	public static long median(final Collection<Long> values) {
 		if(values.isEmpty()) return 0;
-
-		final List<Long> list = new ArrayList<Long>(values);
-		Collections.sort(list);
+		final List<Long> list = values.stream()
+		        .sorted()
+		        .collect(Collectors.toList());
 
 		final int mid = values.size() / 2;
 		return list.get(mid);
