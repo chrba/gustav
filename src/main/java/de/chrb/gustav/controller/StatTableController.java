@@ -44,12 +44,23 @@ public class StatTableController implements GCResultObserver {
     	this.max.setCellValueFactory(s -> s.getValue().max);
     }
 
+    /**
+     * Registers a data binding of the given gc analyze result to
+     * the gui components
+     *
+     * @param result the gc analyze result
+     */
 	@Override
 	public void observe(final GCAnalyzeResult result) {
 		this.statTable.getItems().addAll(result.getStatistics());
 
 	}
 
+	/**
+     * Unregisteres the data binding for the given file
+     *
+     * @param fromFileName references the file to unregister
+     */
 	@Override
 	public void remove(final String fromFileName) {
 		this.statTable.getItems().removeIf(s -> s.fileName.get().equals(fromFileName));

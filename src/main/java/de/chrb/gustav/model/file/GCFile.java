@@ -25,24 +25,6 @@ public class GCFile {
 		this.count = count;
 	}
 
-	@Override
-	public String toString() {
-		return "file-" + count + ": " + this.file.getName();
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.file);
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if(this == obj) return true;
-		if(!(obj instanceof GCFile)) return false;
-		final GCFile that = (GCFile)obj;
-		return Objects.equals(this.file, that.file);
-	}
-
 	/**
 	 * The name of this gc file
 	 * @return the name
@@ -60,6 +42,25 @@ public class GCFile {
 	public File toFile() {
 		return this.file;
 	}
+
+
+    @Override
+    public String toString() {
+        return "file-" + count + ": " + this.file.getName();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.file);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if(this == obj) return true;
+        if(!(obj instanceof GCFile)) return false;
+        final GCFile that = (GCFile)obj;
+        return Objects.equals(this.file, that.file);
+    }
 
 
 }

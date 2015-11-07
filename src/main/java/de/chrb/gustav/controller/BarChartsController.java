@@ -22,7 +22,11 @@ public class BarChartsController implements GCResultObserver {
     @FXML private BarChart<String, Double> sigma;
 
 
-
+    /**
+     * Data binds the result to the gui components
+     *
+     * @param result the gc analyze result
+     */
 	@Override
 	public void observe(GCAnalyzeResult result) {
 		final ChartSeries analyzer = result.getChartSeries();
@@ -37,7 +41,11 @@ public class BarChartsController implements GCResultObserver {
     	this.totalGC.getData().add(analyzer.createSecsPercSeries(name));
 	}
 
-
+	/**
+	 * Removes the data binding for the given gc file
+	 *
+	 * @param fromFileName the gc file name
+	 */
 	@Override
 	public void remove(String fromFileName) {
 		this.num.getData().removeIf(s -> s.getName().equals(fromFileName));
