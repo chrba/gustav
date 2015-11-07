@@ -12,7 +12,7 @@ import javax.annotation.concurrent.Immutable;
  * @author Christian Bannes
  */
 @Immutable
-public class GCMemStats {
+public final class GCMemStats {
 	private final GCMemChange heapChange;
 	private final GCMemChange generationChange;
 

@@ -12,7 +12,7 @@ import javax.annotation.concurrent.Immutable;
  * @author Christian Bannes
  */
 @Immutable
-public class FullGCEvent extends AbstractGCEvent {
+public final class FullGCEvent extends AbstractGCEvent {
 	/** the unique name of this garbage collector */
 	private final static String NAME = "FULL GC";
 

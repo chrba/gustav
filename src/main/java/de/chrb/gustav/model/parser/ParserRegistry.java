@@ -33,7 +33,7 @@ import de.chrb.gustav.model.parser.parnew.ParNewParser;
  * @author Christian Bannes
  */
 @Immutable
-public class ParserRegistry {
+public final class ParserRegistry {
 	private static Logger LOG = LoggerFactory.getLogger(ParserRegistry.class);
 	private static final List<GCParser> parsers =  Arrays.asList(
 			new ParNewParser(),

@@ -9,7 +9,7 @@ import de.chrb.gustav.model.gc.GCMemStats;
 import de.chrb.gustav.model.gc.GCTimeStats;
 
 @Immutable
-public class InitialMarkGCEvent extends AbstractGCEvent {
+public final class InitialMarkGCEvent extends AbstractGCEvent {
 
 	public InitialMarkGCEvent(final String name, final GCTimeStats timeStats, final GCMemStats memStats) {
 		super(name, timeStats, Optional.of(memStats));

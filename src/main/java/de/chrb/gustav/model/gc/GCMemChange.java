@@ -10,7 +10,7 @@ import com.google.common.base.Preconditions;
  * @author Christian Bannes
  */
 @Immutable
-public class GCMemChange {
+public final class GCMemChange {
 
 	private final int occupancyBeforeGc;
 	private final int occupancyAfterGc;

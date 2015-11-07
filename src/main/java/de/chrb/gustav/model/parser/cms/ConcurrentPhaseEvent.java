@@ -8,7 +8,7 @@ import de.chrb.gustav.model.gc.AbstractGCEvent;
 import de.chrb.gustav.model.gc.GCTimeStats;
 
 @Immutable
-public class ConcurrentPhaseEvent extends AbstractGCEvent {
+public final class ConcurrentPhaseEvent extends AbstractGCEvent {
 
 	public ConcurrentPhaseEvent(final String name, final GCTimeStats timeStats) {
 		super(name, timeStats, Optional.empty());

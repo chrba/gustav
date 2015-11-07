@@ -15,7 +15,7 @@ import com.google.common.base.Preconditions;
  * @author Christian Bannes
  */
 @Immutable
-public class GCTimeStats {
+public final class GCTimeStats {
 	private final LocalDateTime timestamp;
 	private final double ellapsedTimeInSecs;
 	private final double durationInSecs;

@@ -13,7 +13,7 @@ import javax.annotation.concurrent.Immutable;
  * @author Christian Bannes
  */
 @Immutable
-public class MinorGCEvent extends AbstractGCEvent {
+public final class MinorGCEvent extends AbstractGCEvent {
 
 	/**
 	 * Creates a minor gc event
