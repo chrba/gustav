@@ -11,18 +11,33 @@ import de.java.regexdsl.model.RegexBuilder;
  */
 public class Patterns {
 
+    /**
+     * Returns a regex that parses a date entry from a gc log
+     *
+     * @return the regex
+     */
 	public static Regex date() {
 		return RegexBuilder.create()
 				.number("#year").constant("-").number("#month").constant("-").number("#day")
 				.build();
 	}
 
+    /**
+     * Returns a regex that parses a time entry from a gc log
+     *
+     * @return the regex
+     */
 	public static Regex time() {
 		return RegexBuilder.create()
 				.number("#hour").constant(":").number("#minute").constant(":").number("#secs")
 				.build();
 	}
 
+    /**
+     * Returns a regex that parses a memory statistics from a gc log
+     *
+     * @return the regex
+     */
 	public static Regex memStatOccupancyBeforeAfterAndTotal() {
 		return RegexBuilder.create()
 				.pattern("\\b")

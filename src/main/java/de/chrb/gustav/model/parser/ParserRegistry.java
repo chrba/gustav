@@ -75,6 +75,11 @@ public final class ParserRegistry {
 		}
 	}
 
+	/**
+	 * Parses a single gc log entry
+	 * @param line the gc log entry
+	 * @return the gc event of absent
+	 */
 	private Optional<GCEvent> parse(final String line) {
 		final Optional<GCParser> parser = parsers.stream()
 				.filter(p -> p.consume(line))

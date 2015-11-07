@@ -3,7 +3,6 @@ package de.chrb.gustav.model.statistics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import de.chrb.gustav.model.gc.GCEvent;
@@ -11,6 +10,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
+/**
+ * Creates a chart series
+ *
+ * @author Christian Bannes
+ */
 public class ChartSeries {
 	private final List<Statistics> statistics;
 	private final Map<String, List<GCEvent>> eventsByName;

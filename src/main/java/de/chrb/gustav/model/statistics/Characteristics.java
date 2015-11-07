@@ -59,7 +59,7 @@ public class Characteristics {
 	 * @return the allocation rate, always >= 0
 	 */
 	public long allocationRate() {
-		final Optional<GCEvent> minor = this.allEvents.stream().filter(e -> e.isMinor()).findFirst();
+		final Optional<GCEvent> minor = this.allEvents.stream().filter(GCEvent::isMinor).findFirst();
 		if(!minor.isPresent() || !minor.get().getMemStats().isPresent()) return 0;
 
 		final int totalYoungGenCapacity = minor.get()
@@ -67,7 +67,7 @@ public class Characteristics {
 					.getGenerationChange()
 					.totalCapacity();
 
-		final Stream<GCEvent> minorEvents =  this.allEvents.stream().filter(e -> e.isMinor());
+		final Stream<GCEvent> minorEvents =  this.allEvents.stream().filter(GCEvent::isMinor);
 		return Math.round(totalYoungGenCapacity / avgTimeBetweenEvents(minorEvents) / 1000.0);
 	}
 

@@ -32,6 +32,10 @@ public abstract class AbstractParser implements GCParser {
 		return isMultiLine()? consumeMultiLine(message) : consumeSingleLine(message);
 	}
 
+	/**
+	 * Resets the underlying buffer. Must be called before a new gc event parsing
+	 * starts.
+	 */
 	@Override
 	public void reset() {
 		this.buffer = new String();
@@ -79,22 +83,29 @@ public abstract class AbstractParser implements GCParser {
 	 */
 	protected abstract boolean definitelyNotLastLine(String message);
 
-
-	private boolean consumeSingleLine(final String message)
-	{
+	/**
+	 * Used to parse a single line gc event
+	 * @param message the gc log entry
+	 * @return true, if it was possible to parse the line, else false
+	 */
+	private boolean consumeSingleLine(final String message) {
 		if(startParsing(message))
 			return match(message);
 
 		return false;
 	}
 
+	 /**
+     * Used to parse a multi line gc event
+     * @param a single line gc log entry
+     * @return true, if it was possible to parse the line, else false
+     */
 	private boolean consumeMultiLine(final String message) {
 		final boolean startDetected = startParsing(message);
 		if(startDetected && alreadyStarted())
 			this.buffer = new String();
 
-		if(alreadyStarted() || startParsing(message))
-		{
+		if(alreadyStarted() || startParsing(message)) {
 			if(!buffer.isEmpty()) this.buffer += "\n";
 			this.buffer += message;
 
@@ -109,7 +120,11 @@ public abstract class AbstractParser implements GCParser {
 		return false;
 	}
 
-
+	/**
+	 * Checks if this parser matches the gc log entry
+	 * @param message the gc log entry
+	 * @return true if this parser could parse the entry
+	 */
 	private boolean match(String message) {
 		final Regex pattern = pattern();
 		final Match match = pattern.match(message);
@@ -120,16 +135,22 @@ public abstract class AbstractParser implements GCParser {
 		return true;
 	}
 
-
+	/**
+	 * True if the parser already parsed some lines before (only relevant for
+	 * multi line gc events)
+	 *
+	 * @return true if the parser already parsed some lines
+	 */
 	private boolean alreadyStarted() {
 		return this.buffer.length() > 0;
 	}
 
-	protected GCTimeStats readTimeStats(final Match match)
-	{
+	protected GCTimeStats readTimeStats(final Match match) {
+	    //*****************************************************
+	    //TODO: this is not correct! Do not use null values, use Optional instead
+	    //*****************************************************
 		LocalDateTime startup = null;
-		if(match.getByName("timestamp") != null)
-		{
+		if(match.getByName("timestamp") != null) {
 			final String date = match.getByName("timestamp->date");
 			final String time = match.getByName("timestamp->time");
 			startup = LocalDateTime.parse(date+"T"+time);
