@@ -5,4 +5,7 @@ Description
 -----------
 Gustav Garbage Collection Analyzer is a graphical tool to analzye gc logs from Java HotSpot JVM. The tool is based on JavaFX.
 
+Screenshots
+----------
+![Gustav gca](https://github.com/chrba/gustav/blob/master/gustav.png)
 
