@@ -6,12 +6,13 @@ import java.util.Objects;
 import javax.annotation.concurrent.Immutable;
 
 /**
- * Wrapper class for a gc file.
+ * Wrapper class for a gc file. Note, although the physical file is not immutable
+ * the java object itself is ummutable.
  *
  * @author Christian Bannes
  */
 @Immutable
-public class GCFile {
+public final class GCFile {
 	private File file;
 	private int count;
 

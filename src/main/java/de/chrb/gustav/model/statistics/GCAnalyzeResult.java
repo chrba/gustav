@@ -19,7 +19,7 @@ import de.chrb.gustav.model.parser.ParserRegistry;
  * @author Christian Bannes
  */
 @Immutable
-public class GCAnalyzeResult {
+public final class GCAnalyzeResult {
 	private final Map<String, List<GCEvent>> eventsByName;
 	private final List<Statistics> statistics;
 	private final GCFile gcFile;

@@ -22,7 +22,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
  * @author Christian Bannes
  */
 @Immutable
-public class Statistics {
+public final class Statistics {
 	public final ReadOnlyStringProperty fileName;
 	public final ReadOnlyStringProperty name;
 	public final ReadOnlyIntegerProperty num;
